@@ -1,0 +1,38 @@
+
+@if (listTask.length) {
+  <div class="action-box">
+    <button type="button" class="action-button" (click)="selectAll()">
+      <span>{{selectText}}</span>
+    </button>
+
+
+    @if (checkedItem) {
+      <button type="button" class="action-button action-button-delete" (click)="deleteSelected()">Delete selected</button>
+    }
+
+    <button type="button" class="action-button action-button-delete" (click)="clearAll()">Clear all</button>
+
+    <button type="button" class="action-button" (click)="sortByPriority()">Sort by priority</button>
+  </div>
+}
+
+
+@for (task of listTask; track task) {
+
+  <app-todo-item
+    [class]="{
+      'item-even': $even,
+      'item-odd': $odd,
+    }"
+    [task]="task"
+  ></app-todo-item>
+
+} @empty {
+
+  <div class="empty-box">
+    <h2 class="empty-title">Task list is empty</h2>
+
+    <p class="empty-description">You can add your first task</p>
+  </div>
+
+}

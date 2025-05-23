@@ -1,0 +1,84 @@
+@import "./../../../styles/forms";
+
+:host {
+  &.item-even {
+    .task {
+      background-color: rgba(0,0,0,.05);
+    }
+  }
+  &.item-odd {
+    .task {
+      background-color: rgba(0,0,0,.15);
+    }
+  }
+}
+
+
+.task {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  min-height: 48px;
+  padding: 8px;
+  border: 1px solid var(--grey);
+  border-radius: 8px;
+
+  &-complete {
+    border-color: var(--green);
+    box-shadow: inset 0 0 0 2px var(--green);
+  }
+
+}
+
+.title {
+  flex: 1 1 auto;
+  padding: 0 8px;
+  font-size: 16px;
+  line-height: 1.7;
+  text-overflow: ellipsis;
+  background-color: transparent;
+  pointer-events: none;
+
+  &.active {
+    pointer-events: auto;
+    border-bottom: 1px solid var(--secondary-cta);
+  }
+}
+
+.button {
+  align-self: center;
+  padding: 8px 16px;
+  color: var(--white);
+  border-radius: 4px;
+  cursor: pointer;
+
+  &-edit {
+    background-color: var(--secondary-cta);
+
+    &:hover {
+      background-color: var(--secondary-cta-hover);
+    }
+  }
+
+  &-complete {
+    background-color: var(--green);
+
+    &:hover {
+      background-color: var(--green-hover);
+    }
+  }
+
+  &-delete {
+    background-color: var(--red);
+
+    &:hover {
+      background-color: var(--red-hover);
+    }
+  }
+}
+
+.date {
+  width: 100%;
+}

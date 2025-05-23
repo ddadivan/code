@@ -1,0 +1,28 @@
+<section class="wrapper">
+
+  <button type="button" class="back" (click)="backToList()">Вернуть к списку задач</button>
+
+  <div class="top-block">
+    <div class="title">Task #{{task.id}}</div>
+
+    @if (task.complete) {
+      <div class="complete">Complete</div>
+    }
+
+    <div class="status-box">
+      <p class="status-title">Status task:</p>
+      <div class="status status-{{task?.status | lowercase}}">{{task.status}}</div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="content-title">Текст задачи:</div>
+    <p class="description">{{task.title}}</p>
+  </div>
+
+  <div class="date-box">
+    <p class="date-title">Дата создания:</p>
+    <div class="date" [innerHTML]="task.date | date: 'HH:MM' | highlight: '#000' : '#fff'"></div>
+  </div>
+
+</section>

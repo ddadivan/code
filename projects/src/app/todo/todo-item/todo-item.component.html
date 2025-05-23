@@ -1,0 +1,43 @@
+
+<div class="task"
+     [class.task-complete]="task?.complete"
+     (mouseenter)="toggleButtons()"
+     (mouseleave)="toggleButtons()"
+     (dblclick)="redirectToItem()"
+>
+
+  <div class="status status-{{task?.status | lowercase}}">{{task?.status}}</div>
+
+  <div class="checkbox-wrapper">
+    <input id="{{task?.id}}" type="checkbox" (change)="checkedItem()" [checked]="task?.checked" class="custom-checkbox" />
+
+    <label for="{{task?.id}}" class="custom-checkbox-label">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="custom-checkbox-icon">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    </label>
+
+  </div>
+<!--Тут страшна-->
+  <input type="text" class="title"
+         #taskTitle
+         [class.active]="isEdit"
+         [(ngModel)]="task.title"
+         (keyup.enter)="approveEdit()"
+         (blur)="approveEdit()"
+  />
+
+
+  @if (isShowButtons || isEdit) {
+    <button type="button" class="button button-edit" (click)="isEdit ? approveEdit() : editTask()">
+      <span>{{editTextButton}}</span>
+    </button>
+
+    <button type="button" class="button button-complete" (click)="completeItem()">Complete</button>
+  }
+
+  <button type="button" class="button button-delete" (click)="deleteItem()">Delete</button>
+
+  <div class="date" [innerHTML]="task?.date | date: 'HH:MM' | highlight: '#000' : '#fff'"></div>
+
+</div>

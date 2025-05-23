@@ -1,0 +1,61 @@
+
+
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 24px;
+}
+
+.empty {
+  &-box {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 32px 0;
+    text-align: center;
+  }
+
+  &-title {
+    font-size: 32px;
+    font-weight: 500;
+  }
+
+  &-description {
+    font-size: 18px;
+  }
+}
+
+.action {
+  &-box {
+    display: flex;
+    gap: 12px;
+    padding: 8px 0;
+    margin-bottom: 12px;
+    border-top: 1px solid var(--grey);
+    border-bottom: 1px solid var(--grey);
+  }
+
+  &-button {
+    padding: 8px 16px;
+    color: vaR(--white);
+    border-radius: 8px;
+    background-color: var(--secondary-cta);
+
+    &:first-child {
+      margin-right: auto;
+    }
+
+    &:not(.action-button-delete):hover {
+      background-color: var(--secondary-cta-hover);
+    }
+
+    &-delete {
+      background-color: var(--red);
+
+      &:hover {
+        background-color: var(--red-hover);
+      }
+    }
+  }
+}
