@@ -4,11 +4,11 @@ import {FormsModule} from '@angular/forms';
 import {IPriority, ITodoItem, priorityButtons} from './interfaces/todo.interfaces';
 import {Status} from './enums/enums.todo';
 import {CurrencyPipe, DatePipe, DecimalPipe} from '@angular/common';
-import {CapitalizePipe} from '../shared/pipes/capitalize.pipe';
-import {HighlightTextDirective} from '../shared/directives/highlight-text.directive';
+import {CapitalizePipe} from '../../shared/pipes/capitalize.pipe';
+import {HighlightTextDirective} from '../../shared/directives/highlight-text.directive';
 import {MatDialog} from '@angular/material/dialog';
-import {AuthDialogComponent} from '../UI/dialogs/auth-dialog/auth-dialog.component';
-import {ApiTodosService} from '../shared/services/api-todos.service';
+import {AuthDialogComponent} from '../../UI/dialogs/auth-dialog/auth-dialog.component';
+import {ApiTodosService} from './shared/services/api-todos.service';
 
 @Component({
   selector: 'app-todo',

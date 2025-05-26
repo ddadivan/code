@@ -29,11 +29,11 @@
 
 
   @if (isShowButtons || isEdit) {
-    <button type="button" class="button button-edit" (click)="isEdit ? approveEdit() : editTask()">
+    <button type="button" class="button button-edit" (click)="editAction">
       <span>{{editTextButton}}</span>
     </button>
 
-    <button type="button" class="button button-complete" (click)="completeItem()">Complete</button>
+    <button type="button" class="button button-complete" (click)="completeItem()">{{ completeText }}</button>
   }
 
   <button type="button" class="button button-delete" (click)="deleteItem()">Delete</button>

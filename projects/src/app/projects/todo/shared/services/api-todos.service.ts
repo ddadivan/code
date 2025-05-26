@@ -1,9 +1,10 @@
 import {inject, Injectable} from '@angular/core';
-import {ITodoItem} from '../../todo/interfaces/todo.interfaces';
+import {ITodoItem} from '../../interfaces/todo.interfaces';
 import {HttpClient} from '@angular/common/http';
-import {sideEffectDecorator} from '../../utility/decorators/sideEffect';
-import {withSideEffect} from '../../utility/withSideEffect';
-import {LocalStorageService} from './local-storage.service';
+import {sideEffectDecorator} from '../../../../utility/decorators/sideEffect';
+import {withSideEffect} from '../../../../utility/withSideEffect';
+import {LocalStorageService} from '../../../../shared/services/local-storage.service';
+import {BehaviorSubject, Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,9 @@ export class ApiTodosService{
   private localStorageService:LocalStorageService = inject(LocalStorageService);
 
   private tasks: ITodoItem[] = [];
+  private tasksSubject$: BehaviorSubject<ITodoItem[]> = new BehaviorSubject<ITodoItem[]>([]);
+  public readonly tasks$: Observable<ITodoItem[]> = this.tasksSubject$.asObservable();
+
   private isSortList: boolean = false;
 
   constructor() {
@@ -21,7 +25,9 @@ export class ApiTodosService{
   }
 
   public init() {
-    this.tasks = JSON.parse(this.localStorageService.get('todoList') ?? '[]');
+    this.tasks = this.localStorageService.getItem('todoList', '[]');
+
+    this.tasksSubject$.next(this.tasks);
   }
 
   public getItemById(id: number): ITodoItem {
@@ -68,8 +74,17 @@ export class ApiTodosService{
     this.tasks = [];
   }
 
+  private areAllStatusesSame(tasks: ITodoItem[]): boolean {
+    const firstStatus = tasks[0].status;
+    return tasks.every(task => task.status === firstStatus);
+  }
+
   @sideEffectDecorator('saveListToStorage')
   public sortByPriority(): void {
+
+    if (this.areAllStatusesSame(this.tasks)) {
+      return;
+    }
 
     if (this.isSortList) {
       this.tasks.reverse();
@@ -87,6 +102,7 @@ export class ApiTodosService{
 
     this.tasks = this.tasks.filter((item: ITodoItem) => item.id !== task.id);
 
+    this.tasksSubject$.next(this.tasks); // need to delete
   })
 
   public sideEffectSelectAll = withSideEffect(this.saveListToStorage.bind(this));
@@ -97,10 +113,12 @@ export class ApiTodosService{
     }
 
     this.tasks.forEach((item: ITodoItem) => item.checked = true);
+
+    this.tasksSubject$.next(this.tasks); // need to delete
   })
 
   public saveListToStorage(): void {
-    console.log(111, 'save');
-    this.localStorageService.set('todoList', JSON.stringify(this.tasks));
+    this.localStorageService.setItem('todoList', this.tasks);
+    this.tasksSubject$.next(this.tasks);
   }
 }

@@ -16,8 +16,6 @@ export class CustomTitleStrategyService extends TitleStrategy{
   public override updateTitle(snapshot: RouterStateSnapshot): void {
     const title = this.buildTitle(snapshot);
 
-    console.log(snapshot);
-
     const updateTitle = title?.split(' ').join(' \u2022 ');
 
     if (updateTitle) {

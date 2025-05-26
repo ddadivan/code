@@ -22,7 +22,7 @@ import {MatCheckbox} from '@angular/material/checkbox';
 import {MatSelect} from '@angular/material/select';
 import {AuthUserService} from '../../../shared/services/auth-user.service';
 import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component";
-import {IConfirm} from "../../../todo/interfaces/todo.interfaces";
+import {IConfirm} from "../../../projects/todo/interfaces/todo.interfaces";
 import {map} from "rxjs";
 import {ConfirmDeactivateGuard} from "../../../core/guards/confirm-deactivate.guard";
 
@@ -112,21 +112,14 @@ export class AuthDialogComponent {
   }
 
   public submitForm(): void {
-    console.log(this.authForm.value);
 
-    this.authService.saveUser();
+    this.authService.saveUser(this.authForm.value);
 
     //this.dialogRef.close();
   }
 
   public close(): void {
-    //this.dialogRef.close();
 
-    // console.log('touched', this.authForm.get('name')?.touched);
-    // console.log('required', this.authForm.get('name')?.hasError('required'));
-    console.log('errors', this.authForm.errors);
-
-    //this.dialogRef.close({name: 'Dima'});
   }
 
   public canDeactivate(component: unknown) {

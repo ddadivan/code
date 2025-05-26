@@ -1,4 +1,4 @@
-import {CanActivate, CanActivateFn} from '@angular/router';
+import {CanActivate, CanActivateFn, Router} from '@angular/router';
 import {inject, Injectable} from '@angular/core';
 import {AuthDialogComponent} from '../../UI/dialogs/auth-dialog/auth-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
@@ -14,12 +14,13 @@ import {LocalStorageService} from '../../shared/services/local-storage.service';
 export class AuthGuard implements CanActivate {
 
   readonly dialog = inject(MatDialog);
+  private router: Router = inject(Router);
   private localStorageService:LocalStorageService = inject(LocalStorageService);
 
   public canActivate(): boolean {
 
-    if (!JSON.parse(this.localStorageService.get('isLoggedUser') ?? 'false')) {
-      this.dialog.open(AuthDialogComponent);
+    if (!this.localStorageService.getItem('LoggedUser', 'false')) {
+      this.router.navigate(['/auth']);
       return false;
     }
 

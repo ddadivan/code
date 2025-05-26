@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, MaybeAsync, Resolve, RouterStateSnapshot} from "@angular/router";
-import {ApiTodosService} from "../../shared/services/api-todos.service";
+import {ApiTodosService} from "./api-todos.service";
 
 @Injectable({
   providedIn: 'root'

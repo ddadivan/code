@@ -1,5 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {Router} from '@angular/router';
+import {LocalStorageService} from "./local-storage.service";
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +8,8 @@ import {Router} from '@angular/router';
 export class AuthUserService {
 
   private router: Router = inject(Router);
+  private localStorageService:LocalStorageService = inject(LocalStorageService);
+
   private isLoggedIn: boolean = false;
 
   constructor() { }
@@ -15,14 +18,21 @@ export class AuthUserService {
     return this.isLoggedIn;
   }
 
+  get user() {
+    return this.localStorageService.getItem('LoggedUser', 'null');
+  }
+
   set isLoggedUser(value: boolean) {
     this.isLoggedIn = value;
   }
 
-  public saveUser(): void {
-    this.isLoggedIn = true;
-    localStorage.setItem('isLoggedUser', JSON.stringify(this.isLoggedIn));
+  public logout(): void {
+    this.localStorageService.delete('LoggedUser');
+  }
 
+  public saveUser(data: any): void {
+    this.isLoggedIn = true;
+    this.localStorageService.setItem('LoggedUser', data);
     this.router.navigate(['/todo']);
   }
 

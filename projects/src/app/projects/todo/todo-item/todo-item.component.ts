@@ -2,11 +2,11 @@ import {Component, ElementRef, inject, Input, ViewChild} from '@angular/core';
 import {IConfirm, ITodoItem} from '../interfaces/todo.interfaces';
 import {FormsModule} from '@angular/forms';
 import {DatePipe, LowerCasePipe} from '@angular/common';
-import {HighlightPipe} from '../../shared/pipes/highlight.pipe';
+import {HighlightPipe} from '../../../shared/pipes/highlight.pipe';
 import {Router} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
-import {ConfirmDialogComponent} from '../../UI/dialogs/confirm-dialog/confirm-dialog.component';
-import {ApiTodosService} from '../../shared/services/api-todos.service';
+import {ConfirmDialogComponent} from '../../../UI/dialogs/confirm-dialog/confirm-dialog.component';
+import {ApiTodosService} from '../shared/services/api-todos.service';
 
 @Component({
   selector: 'app-todo-item',
@@ -57,6 +57,10 @@ export class TodoItemComponent {
     this.taskTitle.nativeElement.focus();
   }
 
+  public get editAction() {
+    return this.isEdit ? this.approveEdit() : this.editTask();
+  }
+
   public  get editTextButton() {
     return this.isEdit ? 'Approve changes' : 'Edit';
   }
@@ -80,6 +84,10 @@ export class TodoItemComponent {
     this.changeTask(this.task);
   }
 
+  public get completeText(): string {
+    return this.isComplete ? 'Uncomplete' : 'Complete';
+  }
+
   public checkedItem(): void {
     this.task.checked = !this.task.checked;
     this.changeTask(this.task);
@@ -92,10 +100,6 @@ export class TodoItemComponent {
         title: 'Вы хотите открыть задачу?'
       }
     }).afterClosed().subscribe((data: IConfirm) => {
-
-
-      console.log(111, 'this.task.id', this.task.id);
-      console.log(111, 'data.confirm', data.confirm);
 
       if (data.confirm) {
         this.router.navigate(['todo/todo-item', this.task.id]);

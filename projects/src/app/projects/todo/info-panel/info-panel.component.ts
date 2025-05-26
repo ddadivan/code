@@ -19,12 +19,10 @@ export class InfoPanelComponent implements OnInit {
 
   }
   public updateTitle2(value:string): void  {
-    console.log('value', value);
     this.titleChange.emit(value);
   }
 
   public updateTitle(event: HTMLInputElement): void  {
-    console.log('value', event.value);
   }
 
 }

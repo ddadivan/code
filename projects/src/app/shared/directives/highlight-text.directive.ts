@@ -6,9 +6,6 @@ import {Directive, ElementRef, OnInit, Renderer2} from '@angular/core';
 export class HighlightTextDirective implements OnInit {
 
   constructor(private el: ElementRef, private renderer2: Renderer2) {
-    // console.log(111, el);
-    // console.log(111, renderer2);
-
 
   }
 

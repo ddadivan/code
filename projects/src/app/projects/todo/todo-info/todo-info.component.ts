@@ -1,9 +1,9 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ApiTodosService} from '../../shared/services/api-todos.service';
+import {ApiTodosService} from '../shared/services/api-todos.service';
 import {ITodoItem} from '../interfaces/todo.interfaces';
 import {DatePipe, LowerCasePipe} from '@angular/common';
-import {HighlightPipe} from '../../shared/pipes/highlight.pipe';
+import {HighlightPipe} from '../../../shared/pipes/highlight.pipe';
 
 @Component({
   selector: 'app-todo-info',
@@ -30,9 +30,6 @@ export class TodoInfoComponent  implements OnInit {
   }
 
   public init() {
-    console.log('1', this.taskId);
-
-    console.log(222, 'route', this.route.snapshot.data['todo']);
 
     this.task = this.route.snapshot.data['todo'];
     //
@@ -50,10 +47,8 @@ export class TodoInfoComponent  implements OnInit {
 
   public todosHttp() {
     this.todosService.getTodo().subscribe((data) => {
-      console.log('1data', data);
-    })
 
-    console.log('2data', 'sdfsdf');
+    })
   }
 
   public backToList(): void {
