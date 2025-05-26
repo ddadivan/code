@@ -1,0 +1,86 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Diagnostic reports (https://nodejs.org/api/report.html)
+.diagnostic-reports/
+
+# Runtime data
+.eslintcache
+
+# Directory for compiled output
+/dist
+/build
+/out-tsc
+
+# Dependency directories
+/node_modules
+/.pnp
+.pnp.js
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# JSDoc directory
+/docs
+
+# Environment variables
+.env
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
+
+# Local .vscode folder
+.vscode/
+
+# Editor directories and files
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# Mac files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# macOS tags
+.fseventsd/
+.Spotlight-V100/
+.Trashes/
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.json
+
+# Test coverage
+/coverage
+
+# E2E test output (e.g., Protractor logs)
+/e2e/
+
+# Generated files for `ng serve --prod`
+*.js.map
+*.css.map
+
+# VS Code specific files (if you use it)
+.vscode/
+.vscode/*.code-workspace

@@ -2,7 +2,7 @@ import {CanActivate, CanActivateFn} from '@angular/router';
 import {inject, Injectable} from '@angular/core';
 import {AuthDialogComponent} from '../../UI/dialogs/auth-dialog/auth-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
-import {LocalStorageService} from '../services/local-storage.service';
+import {LocalStorageService} from '../../shared/services/local-storage.service';
 
 // export const authGuard: CanActivateFn = (route, state) => {
 //   return true;

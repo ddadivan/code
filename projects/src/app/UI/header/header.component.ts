@@ -15,11 +15,14 @@ export class HeaderComponent {
   private router = inject(Router);
 
   public openAuth(): void {
-    this.dialog.open(AuthDialogComponent).afterClosed().subscribe((result) => {
-      if (result) {
-        console.log(result);
-      }
-    })
+
+    this.router.navigate(['/auth']);
+
+    // this.dialog.open(AuthDialogComponent).afterClosed().subscribe((result) => {
+    //   if (result) {
+    //     console.log(result);
+    //   }
+    // })
   }
 
 

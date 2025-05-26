@@ -6,12 +6,14 @@ import {sideEffectDecorator} from '../../utility/decorators/sideEffect';
 import {InfoPanelComponent} from '../info-panel/info-panel.component';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {ApiTodosService} from '../../shared/services/api-todos.service';
+import {ShowDirective} from "../../UI/header/directives/show.directive";
 
 @Component({
   selector: 'app-todo-list',
   imports: [
     TodoItemComponent,
     ReactiveFormsModule,
+    ShowDirective,
   ],
   templateUrl: './todo-list.component.html',
   styleUrl: './todo-list.component.scss'

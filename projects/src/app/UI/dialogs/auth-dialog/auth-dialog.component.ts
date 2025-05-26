@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
-import {MatDialogRef} from '@angular/material/dialog';
+import {ChangeDetectionStrategy, Component, HostListener, inject} from '@angular/core';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {
   AbstractControl,
   FormBuilder,
@@ -21,6 +21,10 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatCheckbox} from '@angular/material/checkbox';
 import {MatSelect} from '@angular/material/select';
 import {AuthUserService} from '../../../shared/services/auth-user.service';
+import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component";
+import {IConfirm} from "../../../todo/interfaces/todo.interfaces";
+import {map} from "rxjs";
+import {ConfirmDeactivateGuard} from "../../../core/guards/confirm-deactivate.guard";
 
 @Component({
   selector: 'app-auth-dialog',
@@ -42,9 +46,10 @@ import {AuthUserService} from '../../../shared/services/auth-user.service';
 })
 export class AuthDialogComponent {
 
-  private dialogRef: MatDialogRef<AuthDialogComponent> = inject(MatDialogRef);
+  //private dialogRef: MatDialogRef<AuthDialogComponent> = inject(MatDialogRef);
   private authService: AuthUserService = inject(AuthUserService);
   private fb: FormBuilder = inject(FormBuilder);
+  readonly dialog: MatDialog = inject(MatDialog);
 
   public authForm: FormGroup;
 
@@ -111,11 +116,11 @@ export class AuthDialogComponent {
 
     this.authService.saveUser();
 
-    this.dialogRef.close();
+    //this.dialogRef.close();
   }
 
   public close(): void {
-    this.dialogRef.close();
+    //this.dialogRef.close();
 
     // console.log('touched', this.authForm.get('name')?.touched);
     // console.log('required', this.authForm.get('name')?.hasError('required'));
@@ -123,4 +128,30 @@ export class AuthDialogComponent {
 
     //this.dialogRef.close({name: 'Dima'});
   }
+
+  public canDeactivate(component: unknown) {
+
+    if (this.authForm.dirty) {
+      return this.dialog.open(ConfirmDialogComponent, {
+        data: {
+          title: 'Вы уверены что хотите покинуть страницу?'
+        }
+      }).afterClosed().pipe(
+          map((result) => {
+            return result.confirm;
+          })
+      )
+    }
+
+    return true;
+
+  }
+
+  // @HostListener('window:beforeunload', ['$event'])
+  // public preventClosure($event: BeforeUnloadEvent): void {
+  //   if (this.authForm.dirty) {
+  //     $event.preventDefault();
+  //     $event.returnValue = '';
+  //   }
+  // }
 }

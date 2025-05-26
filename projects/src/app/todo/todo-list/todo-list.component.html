@@ -5,10 +5,7 @@
       <span>{{selectText}}</span>
     </button>
 
-
-    @if (checkedItem) {
-      <button type="button" class="action-button action-button-delete" (click)="deleteSelected()">Delete selected</button>
-    }
+          <button *appShow="checkedItem" type="button" class="action-button action-button-delete" (click)="deleteSelected()">Delete selected</button>
 
     <button type="button" class="action-button action-button-delete" (click)="clearAll()">Clear all</button>
 

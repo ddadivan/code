@@ -22,7 +22,7 @@ export class ConfirmDialogComponent {
   }
 
   public close(): void {
-    this.dialogRef.close();
+    this.dialogRef.close({confirm: false});
   }
 
 }

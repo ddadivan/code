@@ -27,7 +27,7 @@ export class TodoItemComponent {
 
   @ViewChild('taskTitle') taskTitle!: ElementRef;
 
-  readonly dialog = inject(MatDialog);
+  readonly dialog: MatDialog = inject(MatDialog);
 
   private router: Router = inject(Router);
 
@@ -95,9 +95,10 @@ export class TodoItemComponent {
 
 
       console.log(111, 'this.task.id', this.task.id);
+      console.log(111, 'data.confirm', data.confirm);
 
       if (data.confirm) {
-        this.router.navigate(['todo-item', this.task.id]);
+        this.router.navigate(['todo/todo-item', this.task.id]);
       }
     })
 

@@ -31,16 +31,21 @@ export class TodoInfoComponent  implements OnInit {
 
   public init() {
     console.log('1', this.taskId);
-    this.route.params.subscribe((params) => {
-      if (params.hasOwnProperty('id')) {
-        this.taskId = params['id'];
-        console.log('2', this.taskId);
-      }
-    })
-    console.log('3', this.taskId);
-    this.task = this.todosService.getItemById(this.taskId);
 
-    console.log(111, this.task);
+    console.log(222, 'route', this.route.snapshot.data['todo']);
+
+    this.task = this.route.snapshot.data['todo'];
+    //
+    // this.route.params.subscribe((params) => {
+    //   if (params.hasOwnProperty('id')) {
+    //     this.taskId = params['id'];
+    //     console.log('2', this.taskId);
+    //   }
+    // })
+    // console.log('3', this.taskId);
+    // this.task = this.todosService.getItemById(this.taskId);
+    //
+    // console.log(111, this.task);
   }
 
   public todosHttp() {
