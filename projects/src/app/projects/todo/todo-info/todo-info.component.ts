@@ -19,7 +19,7 @@ export class TodoInfoComponent  implements OnInit {
 
   private route: ActivatedRoute = inject(ActivatedRoute);
   private todosService: ApiTodosService = inject(ApiTodosService);
-  private router = inject(Router);
+  private router: Router = inject(Router);
 
   public task!: ITodoItem;
   public taskId: number = 0;

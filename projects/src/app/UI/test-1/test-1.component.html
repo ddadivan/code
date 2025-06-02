@@ -1,2 +1,9 @@
-<p>test-1 works!</p>
 
+
+<input type="text" [(ngModel)]="textTitle" (ngModelChange)="textTitleChange.emit(this.textTitle)" />
+
+<button type="button" class="modal-button" appHoverDirective (click)="updateTitle()">Update</button>
+
+<button type="button" appHoverDirective (click)="updateTitle()">Change</button>
+
+<img src="" alt="" appHoverDirective />

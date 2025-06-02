@@ -72,6 +72,16 @@ export class AuthDialogComponent {
     },{validators: [this.confirmPassword, this.connectNameLastName]})
   }
 
+  ngOnInit(): void {
+    this.test()
+  }
+
+  public test(): void {
+    this.authForm.patchValue({
+      name: 'Dima',
+    })
+  }
+
   public confirmPassword(group: AbstractControl): ValidationErrors | null {
     if ( group.get('password')?.value !== group.get('passwordConfirm')?.value) {
 
@@ -134,6 +144,23 @@ export class AuthDialogComponent {
             return result.confirm;
           })
       )
+    }
+
+    const users = {
+      id: 0,
+      firstName: '',
+      lastName: '',
+      age: 20,
+      email: '',
+      position: '', // должность
+      departament: '', // отдел
+      employWorkDate: '',
+      relatedUsers: [], // пользователи с его отдела
+      address: {
+        city: '',
+        street: '',
+        zipCode: '',
+      }
     }
 
     return true;
