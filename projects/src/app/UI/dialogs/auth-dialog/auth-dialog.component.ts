@@ -146,23 +146,6 @@ export class AuthDialogComponent {
       )
     }
 
-    const users = {
-      id: 0,
-      firstName: '',
-      lastName: '',
-      age: 20,
-      email: '',
-      position: '', // должность
-      departament: '', // отдел
-      employWorkDate: '',
-      relatedUsers: [], // пользователи с его отдела
-      address: {
-        city: '',
-        street: '',
-        zipCode: '',
-      }
-    }
-
     return true;
 
   }

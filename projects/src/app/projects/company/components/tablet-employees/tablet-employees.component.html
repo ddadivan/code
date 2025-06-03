@@ -1,0 +1,82 @@
+<table cdk-table [dataSource]="dataSource" class="tablet">
+
+    <ng-container cdkColumnDef="isChecked">
+        <th cdk-header-cell *cdkHeaderCellDef>
+            <mat-checkbox></mat-checkbox>
+        </th>
+        <td cdk-cell *cdkCellDef="let row">
+            <mat-checkbox></mat-checkbox>
+        </td>
+    </ng-container>
+
+    <ng-container cdkColumnDef="name">
+        <th cdk-header-cell *cdkHeaderCellDef>Name </th>
+        <td cdk-cell *cdkCellDef="let element" class="employee-name-cell">
+            <div class="employee-last-name"> {{element.lastName}} </div>
+            <div class="employee-name"> {{element.firstName}} </div>
+        </td>
+    </ng-container>
+
+    <ng-container cdkColumnDef="email">
+        <th cdk-header-cell *cdkHeaderCellDef> Email </th>
+        <td cdk-cell *cdkCellDef="let element"> {{element.email}} </td>
+    </ng-container>
+
+    <ng-container cdkColumnDef="departament">
+        <th cdk-header-cell *cdkHeaderCellDef> Department </th>
+        <td cdk-cell *cdkCellDef="let element"> {{element.departament}} </td>
+    </ng-container>
+
+    <ng-container cdkColumnDef="employWorkDate">
+        <th cdk-header-cell *cdkHeaderCellDef> Start Date </th>
+        <td cdk-cell *cdkCellDef="let element"> {{element.employWorkDate}} </td>
+    </ng-container>
+
+    <ng-container cdkColumnDef="action">
+        <th cdk-header-cell *cdkHeaderCellDef></th>
+        <td cdk-cell *cdkCellDef="let element">
+            <button type="button" class="view-button">View more</button>
+        </td>
+    </ng-container>
+
+    <ng-container cdkColumnDef="info">
+        <th cdk-header-cell *cdkHeaderCellDef style="display: none;"></th>
+        <td cdk-cell *cdkCellDef="let element" class="extended-information">
+
+            <div class="info-wrap info-employee">
+                <div class="info-box">
+                    <div class="info-title">Position</div>
+                    <div class="info-value">{{ element.position}}</div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-title">Age</div>
+                    <div class="info-value">{{ element.age}}</div>
+                </div>
+            </div>
+
+            <div class="info-box info-address">
+                <div class="info-title">Address</div>
+                <ul class="address-list">
+                    <li>
+                        <span class="address-title">City:</span>
+                        <span class="address-value">{{ element.address.city }}</span>
+                    </li>
+                    <li>
+                        <span class="address-title">Street:</span>
+                        <span class="address-value">{{ element.address.street }}</span>
+                    </li>
+                    <li>
+                        <span class="address-title">Zip Code:</span>
+                        <span class="address-value">{{ element.address.zipCode }}</span>
+                    </li>
+                </ul>
+            </div>
+
+        </td>
+    </ng-container>
+
+    <tr cdk-header-row *cdkHeaderRowDef="displayedColumns" class="tablet-head"></tr>
+
+    <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;" class="tablet-row"></tr>
+</table>

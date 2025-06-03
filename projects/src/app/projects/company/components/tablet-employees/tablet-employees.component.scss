@@ -1,0 +1,148 @@
+
+:host {
+  display: block;
+  padding: 32px 24px;
+}
+
+.tablet {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+
+  &-head {
+    min-height: 50px;
+    color: var(--black-2);
+    border: 1px solid rgba(85, 86, 90, 0.12);
+    border-bottom: none;
+    background-color: var(--grey-light);
+    border-radius: 8px 8px 0 0;
+  }
+
+  &-row {
+  }
+}
+
+.employee {
+  &-name-cell {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  &-last-name {
+    color: var(--black-2);
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  &-name {
+    font-size: 14px;
+    color: var(--grey-dark);
+  }
+}
+
+.view-button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 6px;
+  border: 1px solid rgba(125, 131, 152, 0.30);
+  background: var(--white);
+  box-shadow: 0px 3px 6px 0px rgba(18, 18, 18, 0.03);
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(var(--grey-dark-rgb), .2);
+  }
+}
+
+.extended-information {
+  grid-column: 1/-1;
+  display: flex;
+  padding: 16px 0 16px 45px;
+  border-top: 1px solid rgba(125, 131, 152, 0.30);
+}
+
+.info {
+  &-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &-title {
+    color: var(--black-2);
+    font-weight: 500;
+  }
+
+  &-box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  &-employee {
+    flex: 1 1 40%;
+  }
+
+  &-address {
+    flex: 1 1 50%;
+  }
+}
+
+.address {
+  &-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    li {
+      display: flex;
+      align-items: flex-start;
+      gap: 4px;
+    }
+  }
+
+  &-value {
+    color: var(--black-2);
+    font-weight: 500;
+  }
+}
+
+
+tr {
+  display: grid;
+  grid-template-columns: auto repeat(4, minmax(100px, 1fr)) minmax(100px, auto);
+  gap: 8px;
+  width: 100%;
+  min-height: 70px;
+  padding: 10px 24px;
+  color: var(--grey-dark);
+  background-color: vaR(--white);
+  border: 1px solid rgba(85, 86, 90, 0.12);
+  border-bottom: none;
+
+  &:not(.tablet-head):last-child {
+    border-radius: 0 0 8px 8px;
+  }
+
+  &:nth-child(2n) {
+    background-color: var(--grey-light-100);
+  }
+}
+
+th,
+td {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+th {
+  font-weight: 500;
+}

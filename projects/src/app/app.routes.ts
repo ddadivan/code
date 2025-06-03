@@ -10,15 +10,18 @@ import {AuthDialogComponent} from "./UI/dialogs/auth-dialog/auth-dialog.componen
 import {ConfirmDeactivateGuard} from "./core/guards/confirm-deactivate.guard";
 import {TodoResolverService} from "./projects/todo/shared/services/todo-resolver.service";
 import {AuthSecondGuard} from "./core/guards/auth-second.guard";
+import {TabletEmployeesComponent} from "./projects/company/components/tablet-employees/tablet-employees.component";
 
 export const routes: Routes = [
   //{path: '', component: Test1Component, pathMatch: 'prefix', children:[{path:'home', component: Test2Component}]},
   {path: '', component: IntroComponent},
   {path: 'auth', component: AuthDialogComponent, canDeactivate: [ConfirmDeactivateGuard]},
   {path: 'todo', loadChildren: () => import('./projects/todo/todo.routes').then((m) => m.routes), canActivate: [AuthGuard], canMatch: [AuthSecondGuard]},
-
-    {path: 'home', component: Test3Component, pathMatch:'full', children: [
+  {path: 'home', component: Test3Component, pathMatch:'full', children: [
       {path: '', component: Test1Component},
       {path: 'send', component: Test2Component},
     ] },
+
+  {path: 'company', component: TabletEmployeesComponent},
+
 ];

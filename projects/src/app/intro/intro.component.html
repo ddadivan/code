@@ -1,22 +1,31 @@
-<!--<div class="intro">-->
+<div class="intro">
 
-<!--  <h1 class="title">List of projects</h1>-->
+  <h1 class="title">List of projects</h1>
 
-<!--  <p class="description">Choose the project you need</p>-->
+  <p class="description">Choose the project you need</p>
 
-<!--  <div class="card-list">-->
-<!--    <button type="button" class="card" [routerLink]="'/todo'">-->
+  <div class="card-list">
+    <button type="button" class="card" [routerLink]="'/todo'">
 
-<!--      <span class="card-img-box">-->
+      <span class="card-img-box">
+        <img src="./assets/images/todo-list.png" class="card-img" />
+      </span>
+
+      <span class="card-title">Todo list</span>
+    </button>
+
+    <button type="button" class="card" [routerLink]="'/company'">
+
+      <span class="card-img-box">
 <!--        <img src="./assets/images/todo-list.png" class="card-img" />-->
-<!--      </span>-->
+      </span>
 
-<!--      <span class="card-title">Todo list</span>-->
-<!--    </button>-->
-<!--  </div>-->
+      <span class="card-title">Company's employees</span>
+    </button>
+  </div>
 
-<!--</div>-->
+</div>
 
-<input #titleField type="text" [(ngModel)]="title"  />
+<!--<input #titleField type="text" [(ngModel)]="title"  />-->
 
-<app-test-1></app-test-1>
+<!--<app-test-1></app-test-1>-->
