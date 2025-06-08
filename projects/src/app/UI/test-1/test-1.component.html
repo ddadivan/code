@@ -1,9 +1,14 @@
 
 
-<input type="text" [(ngModel)]="textTitle" (ngModelChange)="textTitleChange.emit(this.textTitle)" />
+<ng-container *ngTemplateOutlet="content; context: { $implicit: data }"></ng-container>
 
-<button type="button" class="modal-button" appHoverDirective (click)="updateTitle()">Update</button>
+<ng-template #emptyBlock let-contentText>
+    <span>{{ contentText.name }} 1 </span>
+</ng-template>
 
-<button type="button" appHoverDirective (click)="updateTitle()">Change</button>
+<ng-template #emptyBlockTitle let-contentTitle>
+    <span>{{ contentTitle.name }} 2 </span>
+</ng-template>
 
-<img src="" alt="" appHoverDirective />
+<button type="button" class="modal-button" (click)="changeTemplate('emptyBlock')">Template 1</button>
+<button type="button" class="modal-button" (click)="changeTemplate('emptyBlockTitle')">Template 2</button>

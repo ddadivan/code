@@ -36,3 +36,22 @@ export const priorityButtons: IPriority[] = [
     value: 2,
   },
 ];
+
+
+export const priorityButtonsSecond: IPriority[] = [
+  {
+    id: Status.HIGH,
+    text: 'Edit',
+    value: 0,
+  },
+  {
+    id: Status.MIDDLE,
+    text: 'Update',
+    value: 1,
+  },
+  {
+    id: Status.LOW,
+    text: 'Change',
+    value: 2,
+  },
+];

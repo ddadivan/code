@@ -25,5 +25,11 @@ export class HoverDirectiveDirective {
   }
 
 
+  @HostListener('document:keydown.control', ['$event'])
+  public logInfo2(event: any): void {
+    console.log('event', event);
+  }
+
+
 
 }
