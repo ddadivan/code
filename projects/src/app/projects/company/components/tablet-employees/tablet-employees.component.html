@@ -35,7 +35,7 @@
     <ng-container cdkColumnDef="action">
         <th cdk-header-cell *cdkHeaderCellDef></th>
         <td cdk-cell *cdkCellDef="let element">
-            <button type="button" class="view-button" (click)="viewMoreAction(element.id)">View more</button>
+            <button type="button" class="view-button" (click)="viewMoreAction(element.id)">{{ viewMoreText(element.id) }}</button>
         </td>
     </ng-container>
 

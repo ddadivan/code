@@ -57,4 +57,7 @@ export class TabletEmployeesComponent {
     return this.isShowViewMore && this.currentId === id;
   }
 
+  public viewMoreText(id: string): string {
+    return this.currentId === id && this.isShowViewMore ? 'Hide view' : 'View more';
+  }
 }
