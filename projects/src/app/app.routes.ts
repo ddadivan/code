@@ -11,6 +11,8 @@ import {ConfirmDeactivateGuard} from "./core/guards/confirm-deactivate.guard";
 import {TodoResolverService} from "./projects/todo/shared/services/todo-resolver.service";
 import {AuthSecondGuard} from "./core/guards/auth-second.guard";
 import {TabletEmployeesComponent} from "./projects/company/components/tablet-employees/tablet-employees.component";
+import {MainCompanyComponent} from "./projects/company/components/main-company/main-company.component";
+import {ProfileComponent} from "./projects/company/components/profile/profile.component";
 
 export const routes: Routes = [
   //{path: '', component: Test1Component, pathMatch: 'prefix', children:[{path:'home', component: Test2Component}]},
@@ -22,6 +24,11 @@ export const routes: Routes = [
       {path: 'send', component: Test2Component},
     ] },
 
-  {path: 'company', component: TabletEmployeesComponent},
+  {path: 'company', component: MainCompanyComponent, pathMatch: 'full',
+      children: [
+        {path: '', component: TabletEmployeesComponent},
+        {path: 'employee/:id', component: ProfileComponent},
+      ]
+  },
 
 ];

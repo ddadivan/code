@@ -11,6 +11,7 @@ import {
 import {IEmployee} from "../../interfaces/company.interfaces";
 import {UsersApiService} from "../../shared/users-api.service";
 import {MatCheckbox} from "@angular/material/checkbox";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-tablet-employees',
@@ -25,7 +26,8 @@ import {MatCheckbox} from "@angular/material/checkbox";
     CdkHeaderRowDef,
     CdkRowDef,
     CdkRow,
-    MatCheckbox
+    MatCheckbox,
+    RouterLink
   ],
   templateUrl: './tablet-employees.component.html',
   styleUrl: './tablet-employees.component.scss'

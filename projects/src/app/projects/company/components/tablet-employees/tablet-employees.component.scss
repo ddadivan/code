@@ -1,8 +1,4 @@
 
-:host {
-  display: block;
-  padding: 32px 24px;
-}
 
 .tablet {
   width: 100%;
@@ -149,4 +145,8 @@ td {
 
 th {
   font-weight: 500;
+}
+
+td {
+  min-height: 49px;
 }

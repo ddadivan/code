@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import {companyEmployees, IEmployee} from "../interfaces/company.interfaces";
+import {IEmployee} from "../interfaces/company.interfaces";
+import {companyEmployees} from "../constants/company.constants";
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,7 @@ import {companyEmployees, IEmployee} from "../interfaces/company.interfaces";
 export class UsersApiService {
 
 
-  companyEmployees: IEmployee[] = companyEmployees;
+  public companyEmployees: IEmployee[] = companyEmployees;
 
   constructor() { }
 
@@ -16,12 +17,16 @@ export class UsersApiService {
     return this.companyEmployees;
   }
 
-  private populateRelatedUsers(employees: IEmployee[]): void {
+  public populateRelatedUsers(employees: IEmployee[]): void {
     this.companyEmployees.forEach(user => {
       user.relatedUsers = employees.filter(
           otherUser => otherUser.departament === user.departament && otherUser.id !== user.id
       );
     });
+  }
+
+  public findEmployee(id: string): IEmployee {
+    return <IEmployee>this.companyEmployees.find((item: IEmployee) => item.id === id);
   }
 
 
