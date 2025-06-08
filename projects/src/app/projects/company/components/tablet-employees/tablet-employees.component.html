@@ -35,14 +35,14 @@
     <ng-container cdkColumnDef="action">
         <th cdk-header-cell *cdkHeaderCellDef></th>
         <td cdk-cell *cdkCellDef="let element">
-            <button type="button" class="view-button">View more</button>
+            <button type="button" class="view-button" (click)="viewMoreAction(element.id)">View more</button>
         </td>
     </ng-container>
 
+
     <ng-container cdkColumnDef="info">
         <th cdk-header-cell *cdkHeaderCellDef style="display: none;"></th>
-        <td cdk-cell *cdkCellDef="let element" class="extended-information">
-
+        <td cdk-cell *cdkCellDef="let element" class="extended-information" [class.show]="showMoreBlock(element.id)">
             <div class="info-wrap info-employee">
                 <div class="info-box">
                     <div class="info-title">Position</div>
@@ -72,7 +72,6 @@
                     </li>
                 </ul>
             </div>
-
         </td>
     </ng-container>
 

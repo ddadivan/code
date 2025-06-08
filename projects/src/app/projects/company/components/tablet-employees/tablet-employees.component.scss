@@ -62,9 +62,13 @@
 
 .extended-information {
   grid-column: 1/-1;
-  display: flex;
+  display: none;
   padding: 16px 0 16px 45px;
   border-top: 1px solid rgba(125, 131, 152, 0.30);
+
+  &.show {
+    display: flex;
+  }
 }
 
 .info {

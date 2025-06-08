@@ -38,4 +38,21 @@ export class TabletEmployeesComponent {
 
   public dataSource: IEmployee[] = this.UsersApiService.employeesList();
 
+  public isShowViewMore: boolean = false;
+  public currentId: string | null = null;
+
+  public viewMoreAction(id: string) {
+
+    if (this.currentId === id) {
+      this.isShowViewMore = !this.isShowViewMore;
+    } else {
+      this.currentId = id;
+      this.isShowViewMore = true;
+    }
+  }
+
+  public showMoreBlock(id: string): boolean {
+    return this.isShowViewMore && this.currentId === id;
+  }
+
 }
