@@ -24,7 +24,7 @@ export const routes: Routes = [
       {path: 'send', component: Test2Component},
     ] },
 
-  {path: 'company', component: MainCompanyComponent, pathMatch: 'full',
+  {path: 'company', component: MainCompanyComponent,
       children: [
         {path: '', component: TabletEmployeesComponent},
         {path: 'employee/:id', component: ProfileComponent},

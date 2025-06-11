@@ -29,5 +29,4 @@ export class UsersApiService {
     return <IEmployee>this.companyEmployees.find((item: IEmployee) => item.id === id);
   }
 
-
 }

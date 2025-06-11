@@ -1,18 +1,19 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {Component, inject, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {ActivatedRoute, RouterLink} from "@angular/router";
 import {companyEmployees} from "../../constants/company.constants";
 import {UsersApiService} from "../../shared/users-api.service";
 import {IEmployee} from "../../interfaces/company.interfaces";
 
 @Component({
   selector: 'app-profile',
-  imports: [],
+  imports: [
+    RouterLink
+  ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnChanges {
 
-  private route: ActivatedRoute = inject(ActivatedRoute);
   private usersApiService: UsersApiService = inject(UsersApiService);
 
   public employeeId: string = '';
@@ -24,18 +25,15 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
-    //this.init();
-
-    this.usersApiService.populateRelatedUsers(companyEmployees);
+  ngOnChanges(changes: SimpleChanges) {
+    this.init();
   }
 
   public init() {
-    this.route.params.subscribe((params) => {
-      if (params.hasOwnProperty('id')) {
-        this.employeeId = params['id'];
-      }
-    })
+
+    this.employee = this.usersApiService.findEmployee(this.employeeId);
+
+    this.usersApiService.populateRelatedUsers(companyEmployees);
   }
 
 }
