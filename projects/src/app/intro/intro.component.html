@@ -13,11 +13,21 @@
 
 <!--</div>-->
 
+<app-custom-field [(ngModel)]="userName"></app-custom-field>
+
+<app-test-2 [name]="userName"></app-test-2>
+
+<hr/>
 
 <form [formGroup]="infoForm" (submit)="saveChanges()">
+
     <app-custom-field formControlName="name"></app-custom-field>
 
     <app-custom-field formControlName="lastName"></app-custom-field>
+
+    <app-custom-field-second formControlName="nickname"></app-custom-field-second>
+
+    <app-custom-field-third ngDefaultControl formControlName="nicknameDog"></app-custom-field-third>
 
     <input type="number" class="field" formControlName="age"/>
 
