@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, ViewChild} from '@angular/core';
 import {
   CdkCell,
   CdkCellDef,
@@ -12,29 +12,35 @@ import {IEmployee} from "../../interfaces/company.interfaces";
 import {UsersApiService} from "../../shared/users-api.service";
 import {MatCheckbox} from "@angular/material/checkbox";
 import {RouterLink} from "@angular/router";
+import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray} from "@angular/cdk/drag-drop";
+import {MatTable} from "@angular/material/table";
 
 @Component({
   selector: 'app-tablet-employees',
-  imports: [
-    CdkTable,
-    CdkColumnDef,
-    CdkHeaderCell,
-    CdkCell,
-    CdkCellDef,
-    CdkHeaderCellDef,
-    CdkHeaderRow,
-    CdkHeaderRowDef,
-    CdkRowDef,
-    CdkRow,
-    MatCheckbox,
-    RouterLink
-  ],
+    imports: [
+        CdkTable,
+        CdkColumnDef,
+        CdkHeaderCell,
+        CdkCell,
+        CdkCellDef,
+        CdkHeaderCellDef,
+        CdkHeaderRow,
+        CdkHeaderRowDef,
+        CdkRowDef,
+        CdkRow,
+        MatCheckbox,
+        RouterLink,
+        CdkDropList,
+        CdkDrag
+    ],
   templateUrl: './tablet-employees.component.html',
   styleUrl: './tablet-employees.component.scss'
 })
 export class TabletEmployeesComponent {
 
   public UsersApiService: UsersApiService = inject(UsersApiService);
+
+  @ViewChild('table', {static: true}) table!: MatTable<IEmployee>;
 
   public displayedColumns: string[] = ['isChecked', 'name', 'email', 'departament', 'employWorkDate', 'action', 'info'];
 
@@ -59,5 +65,12 @@ export class TabletEmployeesComponent {
 
   public viewMoreText(id: string): string {
     return this.currentId === id && this.isShowViewMore ? 'Hide view' : 'View more';
+  }
+
+  public  drop(event: CdkDragDrop<string>) {
+     const previousIndex = this.dataSource.findIndex(d => d === event.item.data);
+
+     moveItemInArray(this.dataSource, previousIndex, event.currentIndex);
+     this.table.renderRows();
   }
 }

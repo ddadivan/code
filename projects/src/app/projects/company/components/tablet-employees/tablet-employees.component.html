@@ -1,4 +1,5 @@
-<table cdk-table [dataSource]="dataSource" class="tablet">
+<table cdk-table [dataSource]="dataSource" class="tablet" #table cdkDropList (cdkDropListDropped)="drop($event)"
+       cdkDropListData="dataSource">
 
     <ng-container cdkColumnDef="isChecked">
         <th cdk-header-cell *cdkHeaderCellDef>
@@ -79,5 +80,5 @@
 
     <tr cdk-header-row *cdkHeaderRowDef="displayedColumns" class="tablet-head"></tr>
 
-    <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;" class="tablet-row"></tr>
+    <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;" cdkDrag [cdkDragData]="row" class="tablet-row"></tr>
 </table>

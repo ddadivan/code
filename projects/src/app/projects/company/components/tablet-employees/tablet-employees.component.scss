@@ -15,6 +15,13 @@
   }
 
   &-row {
+
+    &.cdk-drag-preview {
+      border: 1px solid rgba(85, 86, 90, 0.12);
+      box-shadow: 0 4px 8px 0 rgba(var(--grey-dark-rgb), .35);
+      border-radius: 4px;
+      overflow: visible;
+    }
   }
 }
 
@@ -151,4 +158,17 @@ th {
 
 td {
   min-height: 49px;
+}
+
+
+
+.cdk-drag-placeholder {
+  &:after {
+    position: absolute;
+    content: '';
+    inset: 0;
+    border: 1px dashed var(--grey-dark);
+    background-color: rgba(0,0,0, .15);
+    z-index: 1;
+  }
 }
