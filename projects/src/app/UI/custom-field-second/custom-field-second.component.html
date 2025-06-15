@@ -1,1 +1,6 @@
 <input type="text" class="field" [value]="value" (input)="changeField($event)" />
+
+@let customBlock = {title: 'title'}.title | uppercase;
+
+<p>{{customBlock}}</p>
+

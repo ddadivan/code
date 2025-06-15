@@ -8,20 +8,22 @@ import {CustomFieldComponent} from "../UI/custom-field/custom-field.component";
 import {CustomFieldSecondComponent} from "../UI/custom-field-second/custom-field-second.component";
 import {CustomFieldThirdComponent} from "../UI/custom-field-third/custom-field-third.component";
 import {Test2Component} from "../UI/test-2/test-2.component";
+import {RxJsLearnComponent} from "../UI/rx-js-learn/rx-js-learn.component";
 
 @Component({
   selector: 'app-intro',
-  imports: [
-    RouterLink,
-    Test1Component,
-    FormsModule,
-    NgTemplateOutlet,
-    CustomFieldComponent,
-    ReactiveFormsModule,
-    CustomFieldSecondComponent,
-    CustomFieldThirdComponent,
-    Test2Component
-  ],
+    imports: [
+        RouterLink,
+        Test1Component,
+        FormsModule,
+        NgTemplateOutlet,
+        CustomFieldComponent,
+        ReactiveFormsModule,
+        CustomFieldSecondComponent,
+        CustomFieldThirdComponent,
+        Test2Component,
+        RxJsLearnComponent
+    ],
   templateUrl: './intro.component.html',
   styleUrl: './intro.component.scss'
 })
@@ -71,7 +73,7 @@ export class IntroComponent implements OnInit {
 
     //this.test1Component.textTitle = this.title;
 
-    console.log(111, 'test1Component', this.test1Component);
+    // console.log(111, 'test1Component', this.test1Component);
   }
 
   protected readonly priorityButtons = priorityButtons;

@@ -13,38 +13,40 @@
 
 <!--</div>-->
 
-<app-custom-field [(ngModel)]="userName"></app-custom-field>
+<app-rx-js-learn></app-rx-js-learn>
 
-<app-test-2 [name]="userName"></app-test-2>
+<!--<app-custom-field [(ngModel)]="userName"></app-custom-field>-->
 
-<hr/>
+<!--<app-test-2 [name]="userName"></app-test-2>-->
 
-<form [formGroup]="infoForm" (submit)="saveChanges()">
+<!--<hr/>-->
 
-    <app-custom-field formControlName="name"></app-custom-field>
+<!--<form [formGroup]="infoForm" (submit)="saveChanges()">-->
 
-    <app-custom-field formControlName="lastName"></app-custom-field>
+<!--    <app-custom-field formControlName="name"></app-custom-field>-->
 
-    <app-custom-field-second formControlName="nickname"></app-custom-field-second>
+<!--    <app-custom-field formControlName="lastName"></app-custom-field>-->
 
-    <app-custom-field-third ngDefaultControl formControlName="nicknameDog"></app-custom-field-third>
+<!--    <app-custom-field-second formControlName="nickname"></app-custom-field-second>-->
 
-    <input type="number" class="field" formControlName="age"/>
+<!--    <app-custom-field-third ngDefaultControl formControlName="nicknameDog"></app-custom-field-third>-->
 
-    <button type="submit" class="modal-button">Submit</button>
-</form>
+<!--    <input type="number" class="field" formControlName="age"/>-->
+
+<!--    <button type="submit" class="modal-button">Submit</button>-->
+<!--</form>-->
 
 
-<ng-template #button>
-    <button type="button" class="card" [routerLink]="'/todo'">
+<!--<ng-template #button>-->
+<!--    <button type="button" class="card" [routerLink]="'/todo'">-->
 
-              <span class="card-img-box">
-                <img src="./assets/images/todo-list.png" class="card-img" />
-              </span>
+<!--              <span class="card-img-box">-->
+<!--                <img src="./assets/images/todo-list.png" class="card-img" />-->
+<!--              </span>-->
 
-        <span class="card-title">Todo list</span>
-    </button>
-</ng-template>
+<!--        <span class="card-title">Todo list</span>-->
+<!--    </button>-->
+<!--</ng-template>-->
 
 <!--<input #titleField type="text" [(ngModel)]="title"  />-->
 
