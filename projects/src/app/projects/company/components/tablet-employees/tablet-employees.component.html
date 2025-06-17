@@ -1,5 +1,11 @@
-<table cdk-table [dataSource]="dataSource" class="tablet" #table cdkDropList (cdkDropListDropped)="drop($event)"
-       cdkDropListData="dataSource">
+<table cdk-table [dataSource]="dataSource" class="tablet"
+       #table
+       cdkDropList
+       (cdkDropListDropped)="drop($event)"
+       cdkDropListData="dataSource"
+       matSort
+       (matSortChange)="sortData($event)"
+>
 
     <ng-container cdkColumnDef="isChecked">
         <th cdk-header-cell *cdkHeaderCellDef>
@@ -11,7 +17,9 @@
     </ng-container>
 
     <ng-container cdkColumnDef="name">
-        <th cdk-header-cell *cdkHeaderCellDef>Name </th>
+        <th cdk-header-cell *cdkHeaderCellDef>
+            <button type="button" mat-sort-header="name">Name</button>
+        </th>
         <td cdk-cell *cdkCellDef="let element" class="employee-name-cell">
             <div class="employee-last-name"> {{element.lastName}} </div>
             <div class="employee-name"> {{element.firstName}} </div>
@@ -19,17 +27,22 @@
     </ng-container>
 
     <ng-container cdkColumnDef="email">
-        <th cdk-header-cell *cdkHeaderCellDef> Email </th>
+        <th cdk-header-cell *cdkHeaderCellDef>
+            <button type="button" mat-sort-header="email">Email</button>
+        </th>
         <td cdk-cell *cdkCellDef="let element"> {{element.email}} </td>
     </ng-container>
 
     <ng-container cdkColumnDef="departament">
-        <th cdk-header-cell *cdkHeaderCellDef> Department </th>
+        <th cdk-header-cell *cdkHeaderCellDef>
+            <button type="button" mat-sort-header="departament">Department</button>
+        </th>
         <td cdk-cell *cdkCellDef="let element"> {{element.departament}} </td>
     </ng-container>
 
     <ng-container cdkColumnDef="employWorkDate">
-        <th cdk-header-cell *cdkHeaderCellDef> Start Date </th>
+        <th cdk-header-cell *cdkHeaderCellDef>
+            <button type="button" mat-sort-header="employWorkDate">Start Date</button> </th>
         <td cdk-cell *cdkCellDef="let element"> {{element.employWorkDate}} </td>
     </ng-container>
 
@@ -82,3 +95,9 @@
 
     <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;" cdkDrag [cdkDragData]="row" class="tablet-row"></tr>
 </table>
+
+<mat-paginator [length]="dataSource.data.length"
+               [pageSize]="10"
+               [pageSizeOptions]="[5, 10, 25]"
+               aria-label="Select page">
+</mat-paginator>

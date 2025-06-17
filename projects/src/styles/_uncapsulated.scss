@@ -1,0 +1,22 @@
+
+.mat-mdc-paginator {
+  .mat-mdc-paginator-container {
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .mat-mdc-paginator-page-size,
+  .mat-mdc-paginator-range-label {
+    margin: 0;
+  }
+
+  .mat-mdc-paginator-range-actions {
+    gap: 16px;
+  }
+}
+
+.mat-sort-header-sorted {
+  .mat-sort-header-arrow svg {
+    fill: var(--secondary-cta);
+  }
+}
