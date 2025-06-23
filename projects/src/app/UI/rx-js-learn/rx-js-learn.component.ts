@@ -1,14 +1,30 @@
-import {Component, inject, OnDestroy, OnInit} from '@angular/core';
-import {BehaviorSubject, Observable, Observer, ReplaySubject, Subject, Subscription} from "rxjs";
+import {Component, ElementRef, inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {
+  BehaviorSubject, debounce, debounceTime, first, forkJoin, fromEvent, interval, map,
+  Observable,
+  Observer,
+  of,
+  reduce,
+  ReplaySubject,
+  scan,
+  Subject,
+  Subscription,
+  take, tap
+} from "rxjs";
 import {Router} from "@angular/router";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-rx-js-learn',
-  imports: [],
+  imports: [
+    FormsModule
+  ],
   templateUrl: './rx-js-learn.component.html',
   styleUrl: './rx-js-learn.component.scss'
 })
 export class RxJsLearnComponent implements OnInit, OnDestroy {
+
+  @ViewChild('field', {static: true}) fieldRef!: ElementRef;
 
   private router: Router = inject(Router);
 
@@ -23,94 +39,161 @@ export class RxJsLearnComponent implements OnInit, OnDestroy {
   firstReplay: ReplaySubject<any> = new ReplaySubject<any>(3);
 
 
+  public counter: number = 0;
+  public counter$ = of(5);
+
+
+  public counterField: number = 0;
+  public counterUp: number = 0;
+  public counterUp$: BehaviorSubject<number> = new BehaviorSubject<number>(this.counterUp);
+
+
+  public increment(): void {
+    //this.counter$.next(this.counter$.value + 1);
+  }
+
+  public decrement(): void {
+   // this.counter$.next(this.counter$.value - 1);
+  }
+
+  public changeCounter(value: any): void {
+    this.counterUp$.next(value);
+  }
+
+  ngAfterViewInit() {
+
+  }
+
 
   ngOnInit() {
-
-    this.firstSubject.next('1');
-
-
-    const firstSubject = this.firstSubject.subscribe((val) => {
-      console.log('firstSub subscribe', val);
+   // of(1,2,3,3,21).pipe(map((el)=> el * 2 )).subscribe(console.log);
+    this.counterUp$.pipe(
+        debounceTime(200),
+      map((value) => {
+         return value * 2;
+      }),
+      take(4),
+    ).subscribe((value) => {
+      this.counterUp = value;
     })
 
+    fromEvent(this.fieldRef.nativeElement, 'click').subscribe(() => {
+      console.log('click');
+    })
+
+
+    const numberArr: number[] = [1, 2, 3, 4, 5, 10, 20, 15,11,14];
+
+
+    forkJoin([this.firstSubject, this.firstBehavior]).subscribe((data) => {
+      console.log(data);
+    })
+
+    of(...numberArr).pipe(
+        tap(()=> {
+
+        }),
+        scan((acc, value) => {
+          return acc + value;
+        }),
+        first(),
+        take(2),
+    ).subscribe((data) => {
+      console.log(data);
+    })
+
+    // interval(1000).pipe(
+    //     first(),
+    //
+    // ).subscribe((data) => {
+    //   console.log(data);
+    // })
+
+
+    const count = this.counter$.subscribe((value) => {
+      this.counter = value;
+    })
+
+    count.unsubscribe();
+
+    this.firstSubject.next('1');
     this.firstSubject.next('2');
 
+    this.firstBehavior.next('11');
+    this.firstBehavior.next('22');
+
     this.firstSubject.subscribe((val) => {
-      console.log('firstSub subscribe', val);
+      console.log(val);
     })
 
     this.firstSubject.next('3');
-    this.firstSubject.next('4');
 
-    console.log('--------');
-
-    this.firstBehavior.next('Behavior 1')
-    this.firstBehavior.next('Behavior 2')
-    this.firstBehavior.next('Behavior 3')
-
-    const firstBehavior = this.firstBehavior.subscribe((val) => {
-      console.log('firstBehavior', val);
+    this.firstSubject.subscribe((val) => {
+      console.log(val);
     })
 
-    this.firstBehavior.next('Behavior 4')
+    this.firstSubject.next('4');
+    this.firstSubject.next('5');
+
+    this.firstSubject.complete();
+    this.firstBehavior.complete();
+
+    // const firstSubject = this.firstSubject.subscribe((val) => {
+    //   console.log('firstSub subscribe', val);
+    // })
+    //
+    // this.firstSubject.next('2');
+    //
+    // this.firstSubject.subscribe((val) => {
+    //   console.log('firstSub subscribe', val);
+    // })
+    //
+    // this.firstSubject.next('3');
+    // this.firstSubject.next('4');
+    //
+    // console.log('--------');
+    //
+    // this.firstBehavior.next('Behavior 1')
+    // this.firstBehavior.next('Behavior 2')
+    // this.firstBehavior.next('Behavior 3')
+    //
+    // const firstBehavior = this.firstBehavior.subscribe((val) => {
+    //   console.log('firstBehavior', val);
+    // })
+    //
+    // this.firstBehavior.next('Behavior 4')
 
     console.log('--------');
 
 
-    this.firstReplay.next('ReplaySub 1');
-    this.firstReplay.next('ReplaySub 2');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next('ReplaySub 3');
-    this.firstReplay.next({name: 'ReplaySub 1', age: 28});
-    this.firstReplay.next({name: 'ReplaySub 2', age: 14});
-    this.firstReplay.next({name: 'ReplaySub 3', age: 55});
+    this.firstBehavior.next('1');
+    this.firstBehavior.next('2');
+    this.firstBehavior.next('3');
+
+    this.firstBehavior.subscribe((val) => {
+      console.log(val);
+    })
+
+    this.firstBehavior.next('4');
+
+    this.firstBehavior.subscribe((val) => {
+      console.log(val);
+    })
+
+    this.firstBehavior.next('6');
+
+    this.firstBehavior.subscribe((val) => {
+      console.log(val);
+    })
+
 
 
     const firstReplay = this.firstReplay.subscribe((val) => {
       console.log('firstReplay', val);
     })
 
-    this.subscriber.add(firstSubject);
-    this.subscriber.add(firstBehavior);
+    // this.subscriber.add(firstSubject);
+    // this.subscriber.add(firstBehavior);
     this.subscriber.add(firstReplay);
 
     //

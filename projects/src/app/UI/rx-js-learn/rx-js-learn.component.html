@@ -1,1 +1,14 @@
 <p>rx-js-learn works!</p>
+
+
+<h1 class="counter">{{ counter }}</h1>
+
+<button type="button" class="modal-button" (click)="increment()">Increment</button>
+<button type="button" class="modal-button" (click)="decrement()">Decrement</button>
+
+<hr />
+
+<input type="text" class="field" #field [ngModel]="counterField" (ngModelChange)="changeCounter($event)" />
+
+
+<p>{{ counterUp }}</p>
