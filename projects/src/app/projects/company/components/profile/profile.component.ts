@@ -1,6 +1,6 @@
-import {Component, inject, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {ActivatedRoute, RouterLink} from "@angular/router";
-import {companyEmployees} from "../../constants/company.constants";
+import {Component, inject, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {RouterLink} from "@angular/router";
+import {COMPANY_EMPLOYEE} from "../../constants/company.constants";
 import {UsersApiService} from "../../shared/users-api.service";
 import {IEmployee} from "../../interfaces/company.interfaces";
 
@@ -17,7 +17,7 @@ export class ProfileComponent implements OnChanges {
   private usersApiService: UsersApiService = inject(UsersApiService);
 
   public employeeId: string = '';
-  public employee: IEmployee = companyEmployees[0];
+  public employee: IEmployee = COMPANY_EMPLOYEE[0];
 
   @Input() set id(value: string) {
     if (value) {
@@ -33,7 +33,7 @@ export class ProfileComponent implements OnChanges {
 
     this.employee = this.usersApiService.findEmployee(this.employeeId);
 
-    this.usersApiService.populateRelatedUsers(companyEmployees);
+    this.usersApiService.populateRelatedUsers(COMPANY_EMPLOYEE);
   }
 
 }

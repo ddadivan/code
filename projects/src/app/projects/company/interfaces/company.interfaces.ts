@@ -16,4 +16,5 @@ export  interface IEmployee {
     relatedUsers?: IEmployee[];
     address: IAddress;
     profilePicture: string;
+    isChecked: boolean;
 }

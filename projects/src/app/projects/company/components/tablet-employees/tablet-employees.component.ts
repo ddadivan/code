@@ -16,6 +16,8 @@ import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray} from "@angular/cdk/d
 import {MatTable, MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort, MatSortHeader, Sort} from "@angular/material/sort";
+import {FormsModule} from "@angular/forms";
+import {first} from "rxjs";
 
 @Component({
     selector: 'app-tablet-employees',
@@ -37,6 +39,7 @@ import {MatSort, MatSortHeader, Sort} from "@angular/material/sort";
         MatPaginator,
         MatSort,
         MatSortHeader,
+        FormsModule,
     ],
     templateUrl: './tablet-employees.component.html',
     styleUrl: './tablet-employees.component.scss'
@@ -51,13 +54,20 @@ export class TabletEmployeesComponent implements AfterViewInit {
 
     public displayedColumns: string[] = ['isChecked', 'name', 'email', 'departament', 'employWorkDate', 'action', 'info'];
 
-    public dataSource = new MatTableDataSource<IEmployee>(this.UsersApiService.employeesList());
+    public dataSource = new MatTableDataSource<IEmployee>();
     public isShowViewMore: boolean = false;
     public currentId: string | null = null;
 
     public sortedData: IEmployee[] = this.dataSource.data.slice();
 
     ngAfterViewInit() {
+
+        this.UsersApiService.employeeList$.pipe(
+
+        ).subscribe((list) => {
+            this.dataSource = new MatTableDataSource<IEmployee>(list);
+        })
+
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
 
@@ -131,4 +141,11 @@ export class TabletEmployeesComponent implements AfterViewInit {
         return (dateA.getTime() < dateB.getTime() ? -1 : 1) * (isAsc ? 1 : -1);
     }
 
+    public checkedItem(id: string, event:any,): void  {
+        this.UsersApiService.checkedEmployees(id, event);
+    }
+
+    public checkedAll(event: any): void  {
+        this.UsersApiService.checkedAll(event);
+    }
 }
