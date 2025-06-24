@@ -1,14 +1,23 @@
-<p>rx-js-learn works!</p>
+<!--<p>rx-js-learn works!</p>-->
 
 
-<h1 class="counter">{{ counter }}</h1>
+<!--<h1 class="counter">{{ counter }}</h1>-->
 
-<button type="button" class="modal-button" (click)="increment()">Increment</button>
-<button type="button" class="modal-button" (click)="decrement()">Decrement</button>
+<!--<button type="button" class="modal-button" (click)="increment()">Increment</button>-->
+<!--<button type="button" class="modal-button" (click)="decrement()">Decrement</button>-->
 
-<hr />
+<!--<hr />-->
 
-<input type="text" class="field" #field [ngModel]="counterField" (ngModelChange)="changeCounter($event)" />
+<!--<input type="text" class="field" #field [ngModel]="counterField" (ngModelChange)="changeCounter($event)" />-->
 
 
-<p>{{ counterUp }}</p>
+<!--<p>{{ counterUp }}</p>-->
+
+
+@for (user of users; track user.id) {
+    <p>{{ user.name }}</p>
+    <p>{{ user.email }}</p>
+    <p>{{ user.address.city }}</p>
+
+    <hr />
+}

@@ -1,6 +1,6 @@
 import {Component, ElementRef, inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {
-  BehaviorSubject, debounce, debounceTime, first, forkJoin, fromEvent, interval, map,
+  BehaviorSubject, catchError, debounce, debounceTime, first, forkJoin, fromEvent, interval, map,
   Observable,
   Observer,
   of,
@@ -11,18 +11,23 @@ import {
   Subscription,
   take, tap
 } from "rxjs";
+import {filter} from "rxjs/operators";
 import {Router} from "@angular/router";
 import {FormsModule} from "@angular/forms";
+import {ApiJsonPlaceholderService} from "../../shared/services/api-json-placeholder.service";
+import {User} from "./interfaces/users.interface";
 
 @Component({
   selector: 'app-rx-js-learn',
   imports: [
-    FormsModule
+    FormsModule,
   ],
   templateUrl: './rx-js-learn.component.html',
   styleUrl: './rx-js-learn.component.scss'
 })
 export class RxJsLearnComponent implements OnInit, OnDestroy {
+
+  private apiJsonPlaceholderService: ApiJsonPlaceholderService = inject(ApiJsonPlaceholderService);
 
   @ViewChild('field', {static: true}) fieldRef!: ElementRef;
 
@@ -47,6 +52,8 @@ export class RxJsLearnComponent implements OnInit, OnDestroy {
   public counterUp: number = 0;
   public counterUp$: BehaviorSubject<number> = new BehaviorSubject<number>(this.counterUp);
 
+  public users: User[] = [];
+
 
   public increment(): void {
     //this.counter$.next(this.counter$.value + 1);
@@ -66,6 +73,30 @@ export class RxJsLearnComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
+
+
+    this.apiJsonPlaceholderService.getUsers().pipe(
+        map((data) => {
+          return data.map((item: User) => {
+            item.name = item.name.toUpperCase()
+            return item;
+          }).filter((item: User) => {
+            let email_name = item.email.split('@')[0];
+
+            return email_name.length < 10;
+          })
+        })
+    ).subscribe({
+      next: (data) => {
+        this.users = data;
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+
+
+    // -----------------
    // of(1,2,3,3,21).pipe(map((el)=> el * 2 )).subscribe(console.log);
     this.counterUp$.pipe(
         debounceTime(200),
@@ -77,9 +108,9 @@ export class RxJsLearnComponent implements OnInit, OnDestroy {
       this.counterUp = value;
     })
 
-    fromEvent(this.fieldRef.nativeElement, 'click').subscribe(() => {
-      console.log('click');
-    })
+    // fromEvent(this.fieldRef.nativeElement, 'click').subscribe(() => {
+    //   console.log('click');
+    // })
 
 
     const numberArr: number[] = [1, 2, 3, 4, 5, 10, 20, 15,11,14];
