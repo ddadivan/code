@@ -98,6 +98,9 @@ export class UsersApiService {
       return isWithinPeriod;
     });
 
+
+    console.log(filteredUsers);
+
     this.updateUsersListPicker(filteredUsers);
   }
 

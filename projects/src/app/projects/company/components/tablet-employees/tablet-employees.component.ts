@@ -18,6 +18,7 @@ import {MatPaginator} from "@angular/material/paginator";
 import {MatSort, MatSortHeader, Sort} from "@angular/material/sort";
 import {FormsModule} from "@angular/forms";
 import {first} from "rxjs";
+import {LocalStorageService} from "../../../../shared/services/local-storage.service";
 
 @Component({
     selector: 'app-tablet-employees',
@@ -47,6 +48,7 @@ import {first} from "rxjs";
 export class TabletEmployeesComponent implements AfterViewInit {
 
     public UsersApiService: UsersApiService = inject(UsersApiService);
+    private readonly localStorageService: LocalStorageService = inject(LocalStorageService);
 
     @ViewChild('table', {static: true}) table!: MatTable<IEmployee>;
     @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -57,6 +59,7 @@ export class TabletEmployeesComponent implements AfterViewInit {
     public dataSource = new MatTableDataSource<IEmployee>();
     public isShowViewMore: boolean = false;
     public currentId: string | null = null;
+    public pageSize: number = this.localStorageService.getItem('pageSize', '10');
 
     public sortedData: IEmployee[] = this.dataSource.data.slice();
 
@@ -151,5 +154,9 @@ export class TabletEmployeesComponent implements AfterViewInit {
 
     public checkedAll(event: any): void  {
         this.UsersApiService.checkedAll(event);
+    }
+
+    public changeCountPage(event: any) {
+        this.localStorageService.setItem('pageSize', event.pageSize);
     }
 }

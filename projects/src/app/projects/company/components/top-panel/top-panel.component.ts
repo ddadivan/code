@@ -46,7 +46,7 @@ export class TopPanelComponent implements OnInit {
     this.UsersApiService.searchEmployees$.pipe(
         debounceTime(500),
     ).subscribe((data: string[]) => {
-      this.searchList = data;
+      this.searchList = data.slice(-5).reverse();
     })
   }
 
@@ -93,6 +93,11 @@ export class TopPanelComponent implements OnInit {
     this.UsersApiService.searchEmployee(value.trim());
 
     this.isShowFindList = false;
+  }
+
+  public searchBlur(value: string): void {
+    this.isShowFindList = false;
+    this.searchChange(value);
   }
 
   public selectSearchItem(value: string): void {

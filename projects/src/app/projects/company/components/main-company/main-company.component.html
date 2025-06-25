@@ -1,5 +1,7 @@
 
-<app-top-panel></app-top-panel>
+@if (showTopPanel) {
+    <app-top-panel></app-top-panel>
+}
 
 <div class="container">
     <router-outlet></router-outlet>
