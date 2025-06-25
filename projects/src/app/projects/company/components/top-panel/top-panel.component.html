@@ -1,7 +1,41 @@
 
 <div class="container">
     <div class="search">
-        <input name="search" class="search-field" placeholder="Find employee..."  />
+
+        <div class="search-box">
+            <input name="search"
+                   class="search-field"
+                   placeholder="Find employee..."
+                   [attr.autocomplete]="'off'"
+                   #search
+                   [(ngModel)]="searchValue"
+                   (keydown.enter)="searchChange(searchValue)"
+                   (change)="searchChange(searchValue)"
+                   (focus)="showFindList($event)" />
+
+            @if (searchValue) {
+                <button type="button" class="clear-button" (click)="clearSearch()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6.17311 4.37329C5.67604 3.87622 4.87012 3.87622 4.37305 4.37329C3.87598 4.87036 3.87598 5.67627 4.37305 6.17334L18.7728 20.573C19.2698 21.07 20.0758 21.07 20.5728 20.573C21.0699 20.0759 21.0699 19.27 20.5728 18.7729L6.17311 4.37329Z" />
+                        <path d="M4.37281 18.7724C3.87573 19.2695 3.87573 20.0754 4.37281 20.5725C4.86988 21.0695 5.67579 21.0695 6.17286 20.5725L20.5726 6.17285C21.0696 5.67578 21.0696 4.86987 20.5726 4.3728C20.0755 3.87573 19.2696 3.87573 18.7725 4.3728L4.37281 18.7724Z" />
+                    </svg>
+                </button>
+            }
+
+        </div>
+
+        @if (showSearchList) {
+            <ul class="search-list">
+
+                @for (item of searchList; track $index) {
+                    <li class="item">
+                        <button type="button" class="button" (click)="selectSearchItem(item)">{{ item }}</button>
+                    </li>
+                }
+
+            </ul>
+        }
+
     </div>
 
     <div class="action-box">
@@ -11,10 +45,10 @@
 </div>
 
 <mat-form-field>
-    <mat-label>Enter a date range</mat-label>
+    <mat-label>Enter work period</mat-label>
     <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
-        <input matStartDate formControlName="start" placeholder="Start date">
-        <input matEndDate formControlName="end" placeholder="End date">
+        <input matStartDate formControlName="start" placeholder="First day">
+        <input matEndDate formControlName="end" placeholder="Last day">
     </mat-date-range-input>
     <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>

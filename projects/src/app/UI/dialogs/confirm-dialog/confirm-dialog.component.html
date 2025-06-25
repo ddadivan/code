@@ -1,5 +1,5 @@
 
-<div class="modal">
+<div class="modal config-modal">
 
   <button type="button" class="modal-close" (click)="close()">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10">
@@ -7,7 +7,15 @@
     </svg>
   </button>
 
-  <div class="title">{{data.title}}</div>
+    <div class="modal-content">
+        <div class="title">{{data.title}}</div>
+
+        @if (data.description) {
+            <p class="description">{{data.description}}</p>
+        }
+
+    </div>
+
 
 
   <div class="modal-button-box">

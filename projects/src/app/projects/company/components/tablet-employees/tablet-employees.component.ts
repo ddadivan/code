@@ -62,10 +62,14 @@ export class TabletEmployeesComponent implements AfterViewInit {
 
     ngAfterViewInit() {
 
-        this.UsersApiService.employeeList$.pipe(
-
-        ).subscribe((list) => {
+        this.UsersApiService.employeeList$.subscribe((list: IEmployee[]) => {
             this.dataSource = new MatTableDataSource<IEmployee>(list);
+
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+            this.sortedData = [...list];
+
+            console.log(111, this.dataSource.data.length);
         })
 
         this.dataSource.paginator = this.paginator;

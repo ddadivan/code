@@ -89,14 +89,17 @@
 
   &-close {
     position: absolute;
-    top: 14px;
-    right: 14px;
-    font-size: 14px;
-    fill: var(--grey);
+    top: 4px;
+    right: 4px;
+    font-size: 12px;
+    padding: 8px;
+    fill: rgba(var(--black-rgba), .3);
+    border-radius: 5px;
     cursor: pointer;
 
     &:hover {
-      fill: var(--grey-second);
+      fill: rgba(var(--black-rgba), .8);
+      background: rgba(var(--black-rgba), .1);
     }
 
   }
