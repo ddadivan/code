@@ -163,4 +163,16 @@ export class UsersApiService {
     this.hasCheckedEmployees$.next(hasChecked);
   }
 
+  @sideEffectDecorator(`saveListToStorage`)
+  public updateEmployee(employee: IEmployee): void {
+    this.companyEmployees = this.companyEmployees.map((item) => {
+      if (item.id === employee.id) {
+        item = employee;
+        return item;
+      }
+
+      return item;
+    })
+  }
+
 }

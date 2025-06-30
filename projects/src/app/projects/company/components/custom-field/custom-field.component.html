@@ -1,6 +1,34 @@
 
 <div class="field-container">
-    <label class="field-title">{{ title }}</label>
+    <label class="field-title"
+           [class.error]="formField && formField.invalid && (formField?.touched || formField.dirty)"
+    >{{ title }}</label>
 
-    <input type="text" class="field" />
+    <input class="field"
+           [class.error]="formField && formField.invalid && (formField?.touched || formField.dirty)"
+           [type]="type"
+           [value]="value"
+           (input)="onInput($event)"
+           (blur)="onBlur()"
+    />
+
+
+    @if (formField && formField.invalid && (formField?.touched || formField.dirty)) {
+        <div class="error-messages">
+
+            @if (formField.errors?.['required']) {
+                <p>Это поле обязательно для заполнения.</p>
+            }
+            @if (formField.errors?.['email']) {
+                <p>Пожалуйста, введите корректный email.</p>
+            }
+            @if (formField.errors?.['min']) {
+                <p>Значение должно быть не менее {{ formField.errors?.['min'].min }}</p>
+            }
+            @if (formField.errors?.['minlength']) {
+                <p>Значение должно быть не менее {{ formField.errors?.['minlength'].requiredLength }} символов. Текущее количество: {{ formField.errors?.['minlength'].actualLength }}</p>
+            }
+        </div>
+    }
+
 </div>

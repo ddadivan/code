@@ -22,21 +22,27 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-content: flex-start;
-  gap: 16px;
+  gap: 16px 32px;
   flex: 1 1 auto;
 }
 
 .title-address {
   grid-column: 1/-1;
-  padding: 16px 0 8px;
+  padding: 16px 8px 8px;
   margin-top: 16px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 2px solid var(--border);
 }
 
 .button {
   min-height: 48px;
   min-width: 160px;
   font-size: 16px;
+
+  &.disabled {
+    background-color: var(--grey-second);
+    opacity: 0.6;
+    pointer-events: none;
+  }
 
   &-wrap {
     display: flex;

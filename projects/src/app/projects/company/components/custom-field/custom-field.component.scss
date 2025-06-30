@@ -1,0 +1,11 @@
+
+.field-title {
+  display: inline-block;
+  padding: 4px 8px;
+  background: rgba(var(--grey-dark-rgb), 0.15);
+  border-radius: 4px;
+
+  &.error {
+    color: var(--red);
+  }
+}
