@@ -10,7 +10,7 @@ export class ApiJsonPlaceholderService {
 
   private http: HttpClient = inject(HttpClient);
 
-  private url = "https://jsonplaceholder.typicode.co";
+  private url = "https://jsonplaceholder.typicode.com";
 
   constructor() {
 
