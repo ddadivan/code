@@ -8,6 +8,7 @@
            [class.error]="formField && formField.invalid && (formField?.touched || formField.dirty)"
            [type]="type"
            [value]="value"
+           [placeholder]="title"
            (input)="onInput($event)"
            (blur)="onBlur()"
     />

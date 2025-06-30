@@ -1,7 +1,8 @@
 import {Component, inject, OnDestroy, OnInit} from '@angular/core';
-import {NavigationEnd, Router, RouterOutlet} from "@angular/router";
+import {ActivatedRoute, NavigationEnd, Router, RouterOutlet} from "@angular/router";
 import {TopPanelComponent} from "../top-panel/top-panel.component";
-import {filter, Subscription} from "rxjs";
+import {filter, Subscription, takeUntil} from "rxjs";
+import {DestroyService} from "../../shared/destroy.service";
 
 @Component({
   selector: 'app-main-company',
@@ -12,25 +13,23 @@ import {filter, Subscription} from "rxjs";
   templateUrl: './main-company.component.html',
   styleUrl: './main-company.component.scss'
 })
-export class MainCompanyComponent implements OnInit, OnDestroy {
+export class MainCompanyComponent implements OnInit {
 
   private router: Router = inject(Router);
+  private readonly destroyService: DestroyService = inject(DestroyService);
 
-  public showTopPanel: boolean = true;
-  private routerSubscription!: Subscription;
+  public showTopPanel: boolean = false;
 
   ngOnInit() {
-    this.routerSubscription = this.router.events.pipe(
-        filter(event => event instanceof NavigationEnd)
+    this.showTopPanel = (this.router.url === '/company' || this.router.url === '/company/');
+
+    this.router.events.pipe(
+        filter(event => event instanceof NavigationEnd),
+        takeUntil(this.destroyService.destroy)
     ).subscribe((event: NavigationEnd) => {
-      this.showTopPanel = event.url === '/company';
+      this.showTopPanel = (event.urlAfterRedirects === '/company' || event.urlAfterRedirects === '/company/');
     });
   }
 
-  ngOnDestroy() {
-    if (this.routerSubscription) {
-      this.routerSubscription.unsubscribe();
-    }
-  }
 
 }

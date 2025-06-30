@@ -4,15 +4,21 @@
 <form class="form-profile" [formGroup]="profileForm" (submit)="submitForm()">
 
     <div class="content">
+
+        <div class="field-title title-info">Employee info</div>
+
         <app-custom-field [title]="'First name'" [parentForm]="profileForm" fieldName="firstName" formControlName="firstName"></app-custom-field>
         <app-custom-field [title]="'Last name'" [parentForm]="profileForm" fieldName="lastName" formControlName="lastName"></app-custom-field>
         <app-custom-field [title]="'Age'" [type]="'number'" [parentForm]="profileForm" fieldName="age" formControlName="age"></app-custom-field>
         <app-custom-field [title]="'Email'" [type]="'email'" [parentForm]="profileForm" fieldName="email" formControlName="email"></app-custom-field>
+
+        <div class="field-title title-info">Employee work info</div>
+
         <app-custom-field [title]="'Position'" [parentForm]="profileForm" fieldName="position" formControlName="position"></app-custom-field>
         <app-custom-field [title]="'Departament'" [parentForm]="profileForm" fieldName="departament" formControlName="departament"></app-custom-field>
         <app-custom-field [title]="'Employ work date'" [parentForm]="profileForm" fieldName="employWorkDate" [type]="'date'" formControlName="employWorkDate"></app-custom-field>
 
-        <div class="field-title title-address">Address employee</div>
+        <div class="field-title title-info">Address employee</div>
 
         <ng-container formGroupName="address">
             <app-custom-field [title]="'City'" [parentForm]="profileForm" fieldName="address.city" formControlName="city"></app-custom-field>

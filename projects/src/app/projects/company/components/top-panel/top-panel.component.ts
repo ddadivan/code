@@ -50,7 +50,7 @@ export class TopPanelComponent implements OnInit {
 
   private initSearchList() {
     this.UsersApiService.searchEmployees$.pipe(
-        debounceTime(500),
+        debounceTime(1000),
         takeUntil(this.destroyService.destroy)
     ).subscribe((data: string[]) => {
       this.searchList = data.slice(-5).reverse();

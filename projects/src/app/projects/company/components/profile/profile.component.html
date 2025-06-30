@@ -13,71 +13,78 @@
         </button>
     </div>
 
-    <div class="profile-top-block">
-        <div class="image-wrap">
-            <img src="" [alt]="employee.profilePicture" class="image">
+    @if (this.employee) {
+        <div class="profile-top-block">
+            <div class="image-wrap">
+                <img src="" [alt]="employee.profilePicture" class="image">
+            </div>
+
+            <div class="name-wrap">
+                <div class="name">{{employee.firstName}} {{employee.lastName}}</div>
+                <div class="position">{{employee.departament}} / {{employee.position}}</div>
+            </div>
         </div>
 
-        <div class="name-wrap">
-            <div class="name">{{employee.firstName}} {{employee.lastName}}</div>
-            <div class="position">{{employee.departament}} / {{employee.position}}</div>
-        </div>
-    </div>
-
-    <ul class="list-info">
-        <li class="item">
-            <span class="item-title">Email</span>
-            <span class="item-value">{{employee.email}}</span>
-        </li>
-        <li class="item">
-            <span class="item-title">Age</span>
-            <span class="item-value">{{employee.age}}</span>
-        </li>
-        <li class="item">
-            <span class="item-title">Address</span>
-            <span class="item-value">
+        <ul class="list-info">
+            <li class="item">
+                <span class="item-title">Email</span>
+                <span class="item-value">{{employee.email}}</span>
+            </li>
+            <li class="item">
+                <span class="item-title">Age</span>
+                <span class="item-value">{{employee.age}}</span>
+            </li>
+            <li class="item">
+                <span class="item-title">Address</span>
+                <span class="item-value">
             <span class="item-title-sub">City:</span>
-                {{employee.address.city}}
+                    {{employee.address.city}}
         </span>
-            <span class="item-value">
+                <span class="item-value">
             <span class="item-title-sub">Street:</span>
-                {{employee.address.street}}
+                    {{employee.address.street}}
         </span>
-            <span class="item-value">
+                <span class="item-value">
             <span class="item-title-sub">ZipCode:</span>
-                {{employee.address.zipCode}}
+                    {{employee.address.zipCode}}
         </span>
-        </li>
-        <li class="item">
-            <span class="item-title">Start work date</span>
-            <span class="item-value">{{employee.employWorkDate}}</span>
-        </li>
-    </ul>
+            </li>
+            <li class="item">
+                <span class="item-title">Start work date</span>
+                <span class="item-value">{{employee.employWorkDate}}</span>
+            </li>
+        </ul>
 
 
-    <div class="related-employee-wrap">
-        <div class="title">Related employee</div>
+        <div class="related-employee-wrap">
+            <div class="title">Related employee</div>
 
-        <ul class="list">
+            <ul class="list">
 
-            @for (user of employee.relatedUsers; track user.id) {
-                <li class="item">
-                    <a href="" class="link" [routerLink]="['/company/employee', user.id]">
+                @for (user of employee.relatedUsers; track user.id) {
+                    <li class="item">
+                        <a href="" class="link" [routerLink]="['/company/employee', user.id]">
                     <span class="icon-wrap">
                         <img [src]="user.profilePicture" alt="" class="icon"/>
                     </span>
-                        <span class="name">{{ user.firstName}} {{ user.lastName}}</span>
-                    </a>
-                </li>
-            } @empty {
-                <li class="empty-item">
-                    <p class="description">This employee has no employees in his department.</p>
-                </li>
-            }
+                            <span class="name">{{ user.firstName}} {{ user.lastName}}</span>
+                        </a>
+                    </li>
+                } @empty {
+                    <li class="empty-item">
+                        <p class="description">This employee has no employees in his department.</p>
+                    </li>
+                }
 
-        </ul>
+            </ul>
 
-    </div>
+        </div>
+    } @else {
+        <div class="empty-box">
+            <p>The employee was not found.</p>
+        </div>
+    }
+
 
 } @else {
 
