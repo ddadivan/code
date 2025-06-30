@@ -4,6 +4,8 @@ import {COMPANY_EMPLOYEE} from "../../constants/company.constants";
 import {UsersApiService} from "../../shared/users-api.service";
 import {IEmployee} from "../../interfaces/company.interfaces";
 import {EditProfileComponent} from "../edit-profile/edit-profile.component";
+import {DestroyService} from "../../shared/destroy.service";
+import {takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-profile',
@@ -17,6 +19,7 @@ import {EditProfileComponent} from "../edit-profile/edit-profile.component";
 export class ProfileComponent implements OnChanges {
 
   private usersApiService: UsersApiService = inject(UsersApiService);
+  private readonly destroyService: DestroyService = inject(DestroyService);
 
   public employeeId: string = '';
   public employee: IEmployee = COMPANY_EMPLOYEE[0];
@@ -34,7 +37,11 @@ export class ProfileComponent implements OnChanges {
 
   public init() {
 
-    this.employee = this.usersApiService.findEmployee(this.employeeId);
+    this.usersApiService.employeeList$.pipe(
+        takeUntil(this.destroyService.destroy)
+    ).subscribe((data) => {
+      this.employee = data.find((item) => item.id === this.employeeId) ?? COMPANY_EMPLOYEE[0];
+    });
 
     this.usersApiService.populateRelatedUsers(COMPANY_EMPLOYEE);
   }

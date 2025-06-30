@@ -22,7 +22,6 @@ export class CustomFieldComponent implements ControlValueAccessor {
 
   @Input() title: string = '';
   @Input() type: string = 'text';
-  //@Input() formControl!: FormControl;
 
   @Input() parentForm!: FormGroup;
   @Input() fieldName!: string;
@@ -32,10 +31,6 @@ export class CustomFieldComponent implements ControlValueAccessor {
 
   private onChange: (value: any) => void = () => {};
   private onTouched: () => void = () => {};
-
-  constructor() {
-    console.log(this.formField?.errors?.['minLength']);
-  }
 
   public get formField(): FormControl {
     return this.parentForm?.get(this.fieldName) as FormControl;

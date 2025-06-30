@@ -68,15 +68,15 @@ export class TabletEmployeesComponent implements AfterViewInit {
 
     ngAfterViewInit() {
 
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-
         this.UsersApiService.employeeList$.pipe(
             takeUntil(this.destroyService.destroy)
         ).subscribe((list: IEmployee[]) => {
             this.dataSource.data = list;
             this.sortedData = [...list];
         });
+
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
 
         this.dataSource.sortingDataAccessor = (item: IEmployee, property: string) => {
             switch (property) {
@@ -117,13 +117,13 @@ export class TabletEmployeesComponent implements AfterViewInit {
     }
 
     public sortData(sort: Sort) {
-        const data = this.sortedData.slice();
+        const data = this.dataSource.data.slice();
         if (!sort.active || sort.direction === '') {
-            this.sortedData = data;
+            this.dataSource.data = data;
             return;
         }
 
-        this.sortedData = data.sort((a, b) => {
+        this.dataSource.data = data.sort((a, b) => {
             const isAsc = sort.direction === 'asc';
             switch (sort.active) {
                 case 'name':

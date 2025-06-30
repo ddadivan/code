@@ -61,9 +61,6 @@ export class TopPanelComponent implements OnInit {
     this.UsersApiService.hasCheckedEmployees$.pipe(
         takeUntil(this.destroyService.destroy),
     ).subscribe((data: boolean) => {
-
-      console.log(111, 'data', data);
-
       this.isCheckedItems = data;
     })
   }

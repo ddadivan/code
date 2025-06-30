@@ -36,8 +36,6 @@ export class EditProfileComponent implements OnInit {
     this.currentEmployee = this.UsersApiService.findEmployee(this.id);
 
     this.profileForm = this.buildForm(this.currentEmployee);
-
-    console.log(this.profileForm);
   }
 
   public buildForm(employee: IEmployee): FormGroup {
@@ -58,7 +56,6 @@ export class EditProfileComponent implements OnInit {
   }
 
   public submitForm(): void {
-
 
     this.currentEmployee = {
       ...this.currentEmployee,

@@ -71,8 +71,6 @@ export class UsersApiService {
   @sideEffectDecorator(`saveListToStorage`)
   public deleteChecked(): void {
     this.companyEmployees = this.companyEmployees.filter((employee: IEmployee) => !employee.isChecked);
-
-    console.log(this.companyEmployees);
   }
 
   public saveListToStorage(): void {
