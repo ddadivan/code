@@ -36,29 +36,29 @@ export class CustomFieldComponent implements ControlValueAccessor {
     return this.parentForm?.get(this.fieldName) as FormControl;
   }
 
-  writeValue(obj: any): void {
+  public writeValue(obj: any): void {
     this.value = obj;
   }
 
-  registerOnChange(fn: any): void {
+  public registerOnChange(fn: any): void {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any): void {
+  public registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
 
-  setDisabledState(isDisabled: boolean): void {
+  public setDisabledState(isDisabled: boolean): void {
     this.isDisabled = isDisabled;
   }
 
-  onInput(event: Event): void {
+  public onInput(event: Event): void {
     const target = event.target as HTMLInputElement;
     this.value = target.value;
     this.onChange(this.value);
   }
 
-  onBlur(): void {
+  public onBlur(): void {
     this.onTouched();
   }
 
