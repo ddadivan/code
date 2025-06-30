@@ -4,6 +4,7 @@
   justify-content: space-between;
   align-items: flex-start;
   width: 100%;
+  min-height: 100px;
   padding: 8px 16px;
   background: var(--white);
   border-radius: 8px;
@@ -77,18 +78,47 @@
 .container {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
   flex: 1 1 auto;
 }
 
 .action {
   display: inline-flex;
-  padding: 8px 12px;
+  align-items: center;
+  padding: 4px 8px;
   color: var(--white);
+  gap: 8px;
   background: rgba(var(--blue-rgba), .8);
   border-radius: 5px;
+  cursor: pointer;
 
   &:hover {
     background: rgba(var(--blue-rgba), .7);
+  }
+
+  .icon {
+    font-size: 24px;
+    fill: var(--white);
+  }
+}
+
+.date-filter {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.clear-date {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  font-size: 24px;
+  border-radius:4px;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(var(--black-rgba), .05);
   }
 }

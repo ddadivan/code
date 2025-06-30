@@ -17,8 +17,9 @@ import {MatTable, MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort, MatSortHeader, Sort} from "@angular/material/sort";
 import {FormsModule} from "@angular/forms";
-import {first} from "rxjs";
+import {first, takeUntil} from "rxjs";
 import {LocalStorageService} from "../../../../shared/services/local-storage.service";
+import {DestroyService} from "../../shared/destroy.service";
 
 @Component({
     selector: 'app-tablet-employees',
@@ -42,6 +43,7 @@ import {LocalStorageService} from "../../../../shared/services/local-storage.ser
         MatSortHeader,
         FormsModule,
     ],
+    providers: [DestroyService],
     templateUrl: './tablet-employees.component.html',
     styleUrl: './tablet-employees.component.scss'
 })
@@ -49,6 +51,7 @@ export class TabletEmployeesComponent implements AfterViewInit {
 
     public UsersApiService: UsersApiService = inject(UsersApiService);
     private readonly localStorageService: LocalStorageService = inject(LocalStorageService);
+    private readonly destroyService: DestroyService = inject(DestroyService);
 
     @ViewChild('table', {static: true}) table!: MatTable<IEmployee>;
     @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -65,18 +68,15 @@ export class TabletEmployeesComponent implements AfterViewInit {
 
     ngAfterViewInit() {
 
-        this.UsersApiService.employeeList$.subscribe((list: IEmployee[]) => {
-            this.dataSource = new MatTableDataSource<IEmployee>(list);
-
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;
-            this.sortedData = [...list];
-
-            console.log(111, this.dataSource.data.length);
-        })
-
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+
+        this.UsersApiService.employeeList$.pipe(
+            takeUntil(this.destroyService.destroy)
+        ).subscribe((list: IEmployee[]) => {
+            this.dataSource.data = list;
+            this.sortedData = [...list];
+        });
 
         this.dataSource.sortingDataAccessor = (item: IEmployee, property: string) => {
             switch (property) {
@@ -112,6 +112,8 @@ export class TabletEmployeesComponent implements AfterViewInit {
 
         moveItemInArray(this.dataSource.data, previousIndex, event.currentIndex);
         this.dataSource.data = [...this.dataSource.data];
+
+        this.UsersApiService.saveListToStorage();
     }
 
     public sortData(sort: Sort) {

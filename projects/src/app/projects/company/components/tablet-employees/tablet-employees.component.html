@@ -1,100 +1,117 @@
-<table cdk-table [dataSource]="dataSource" class="tablet"
-       #table
-       cdkDropList
-       (cdkDropListDropped)="drop($event)"
-       cdkDropListData="dataSource"
-       matSort
-       (matSortChange)="sortData($event)"
->
 
-    <ng-container cdkColumnDef="isChecked">
-        <th cdk-header-cell *cdkHeaderCellDef>
-            <mat-checkbox (change)="checkedAll($event)"></mat-checkbox>
-        </th>
-        <td cdk-cell *cdkCellDef="let row">
-            <mat-checkbox [(ngModel)]="row.isChecked"  (change)="checkedItem(row.id, $event)"></mat-checkbox>
-        </td>
-    </ng-container>
+@if (dataSource.data.length) {
 
-    <ng-container cdkColumnDef="name">
-        <th cdk-header-cell *cdkHeaderCellDef>
-            <button type="button" mat-sort-header="name">Name</button>
-        </th>
-        <td cdk-cell *cdkCellDef="let element" class="employee-name-cell">
-            <div class="employee-last-name"> {{element.lastName}} </div>
-            <div class="employee-name"> {{element.firstName}} </div>
-        </td>
-    </ng-container>
+    <table cdk-table [dataSource]="dataSource" class="tablet"
+           #table
+           cdkDropList
+           (cdkDropListDropped)="drop($event)"
+           cdkDropListData="dataSource"
+           matSort
+           (matSortChange)="sortData($event)"
+    >
 
-    <ng-container cdkColumnDef="email">
-        <th cdk-header-cell *cdkHeaderCellDef>
-            <button type="button" mat-sort-header="email">Email</button>
-        </th>
-        <td cdk-cell *cdkCellDef="let element"> {{element.email}} </td>
-    </ng-container>
+        <ng-container cdkColumnDef="isChecked">
+            <th cdk-header-cell *cdkHeaderCellDef>
+                <mat-checkbox (change)="checkedAll($event)"></mat-checkbox>
+            </th>
+            <td cdk-cell *cdkCellDef="let row">
+                <mat-checkbox [(ngModel)]="row.isChecked"  (change)="checkedItem(row.id, $event)"></mat-checkbox>
+            </td>
+        </ng-container>
 
-    <ng-container cdkColumnDef="departament">
-        <th cdk-header-cell *cdkHeaderCellDef>
-            <button type="button" mat-sort-header="departament">Department</button>
-        </th>
-        <td cdk-cell *cdkCellDef="let element"> {{element.departament}} </td>
-    </ng-container>
+        <ng-container cdkColumnDef="name">
+            <th cdk-header-cell *cdkHeaderCellDef>
+                <button type="button" mat-sort-header="name">Name</button>
+            </th>
+            <td cdk-cell *cdkCellDef="let element" class="employee-name-cell">
+                <div class="employee-last-name"> {{element.lastName}} </div>
+                <div class="employee-name"> {{element.firstName}} </div>
+            </td>
+        </ng-container>
 
-    <ng-container cdkColumnDef="employWorkDate">
-        <th cdk-header-cell *cdkHeaderCellDef>
-            <button type="button" mat-sort-header="employWorkDate">Start Date</button> </th>
-        <td cdk-cell *cdkCellDef="let element"> {{element.employWorkDate}} </td>
-    </ng-container>
+        <ng-container cdkColumnDef="email">
+            <th cdk-header-cell *cdkHeaderCellDef>
+                <button type="button" mat-sort-header="email">Email</button>
+            </th>
+            <td cdk-cell *cdkCellDef="let element"> {{element.email}} </td>
+        </ng-container>
 
-    <ng-container cdkColumnDef="action">
-        <th cdk-header-cell *cdkHeaderCellDef></th>
-        <td cdk-cell *cdkCellDef="let element">
-            <button type="button" class="view-button" (click)="viewMoreAction(element.id)">{{ viewMoreText(element.id) }}</button>
-        </td>
-    </ng-container>
+        <ng-container cdkColumnDef="departament">
+            <th cdk-header-cell *cdkHeaderCellDef>
+                <button type="button" mat-sort-header="departament">Department</button>
+            </th>
+            <td cdk-cell *cdkCellDef="let element"> {{element.departament}} </td>
+        </ng-container>
+
+        <ng-container cdkColumnDef="employWorkDate">
+            <th cdk-header-cell *cdkHeaderCellDef>
+                <button type="button" mat-sort-header="employWorkDate">Start Date</button> </th>
+            <td cdk-cell *cdkCellDef="let element"> {{element.employWorkDate}} </td>
+        </ng-container>
+
+        <ng-container cdkColumnDef="action">
+            <th cdk-header-cell *cdkHeaderCellDef></th>
+            <td cdk-cell *cdkCellDef="let element">
+                <button type="button" class="view-button" (click)="viewMoreAction(element.id)">{{ viewMoreText(element.id) }}</button>
+            </td>
+        </ng-container>
 
 
-    <ng-container cdkColumnDef="info">
-        <th cdk-header-cell *cdkHeaderCellDef style="display: none;"></th>
-        <td cdk-cell *cdkCellDef="let element" class="extended-information" [class.show]="showMoreBlock(element.id)">
-            <div class="info-wrap info-employee">
-                <div class="info-box">
-                    <div class="info-title">Position</div>
-                    <div class="info-value">{{ element.position}}</div>
+        <ng-container cdkColumnDef="info">
+            <th cdk-header-cell *cdkHeaderCellDef style="display: none;"></th>
+            <td cdk-cell *cdkCellDef="let element" class="extended-information" [class.show]="showMoreBlock(element.id)">
+                <div class="info-wrap info-employee">
+                    <div class="info-box">
+                        <div class="info-title">Position</div>
+                        <div class="info-value">{{ element.position}}</div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-title">Age</div>
+                        <div class="info-value">{{ element.age}}</div>
+                    </div>
                 </div>
 
-                <div class="info-box">
-                    <div class="info-title">Age</div>
-                    <div class="info-value">{{ element.age}}</div>
+                <div class="info-box info-address">
+                    <div class="info-title">Address</div>
+                    <ul class="address-list">
+                        <li>
+                            <span class="address-title">City:</span>
+                            <span class="address-value">{{ element.address.city }}</span>
+                        </li>
+                        <li>
+                            <span class="address-title">Street:</span>
+                            <span class="address-value">{{ element.address.street }}</span>
+                        </li>
+                        <li>
+                            <span class="address-title">Zip Code:</span>
+                            <span class="address-value">{{ element.address.zipCode }}</span>
+                        </li>
+                    </ul>
                 </div>
-            </div>
 
-            <div class="info-box info-address">
-                <div class="info-title">Address</div>
-                <ul class="address-list">
-                    <li>
-                        <span class="address-title">City:</span>
-                        <span class="address-value">{{ element.address.city }}</span>
-                    </li>
-                    <li>
-                        <span class="address-title">Street:</span>
-                        <span class="address-value">{{ element.address.street }}</span>
-                    </li>
-                    <li>
-                        <span class="address-title">Zip Code:</span>
-                        <span class="address-value">{{ element.address.zipCode }}</span>
-                    </li>
-                </ul>
-            </div>
+                <a class="filled-cta" [routerLink]="['/company/employee', element.id]" >View profile</a>
+            </td>
+        </ng-container>
 
-            <a class="filled-cta" [routerLink]="['/company/employee', element.id]" >View profile</a>
-        </td>
-    </ng-container>
+        <tr cdk-header-row *cdkHeaderRowDef="displayedColumns" class="tablet-head"></tr>
 
-    <tr cdk-header-row *cdkHeaderRowDef="displayedColumns" class="tablet-head"></tr>
+        <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;" cdkDrag [cdkDragData]="row" class="tablet-row"></tr>
+    </table>
 
-    <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;" cdkDrag [cdkDragData]="row" class="tablet-row"></tr>
-</table>
+
+} @else {
+    <div class="empty-list-box">
+
+        <div class="image-box">
+            <img src="assets/images/empty-picture.svg" alt="Empty list" class="image" />
+        </div>
+
+        <p>Employees not found</p>
+    </div>
+}
+
+
 
 <mat-paginator [length]="dataSource.data.length"
                [pageSize]="pageSize"

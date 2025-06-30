@@ -3,16 +3,18 @@ import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {UsersApiService} from "../../shared/users-api.service";
-import {debounceTime, filter} from "rxjs";
+import {debounceTime, filter, takeUntil} from "rxjs";
 import {ConfirmDialogComponent} from "../../../../UI/dialogs/confirm-dialog/confirm-dialog.component";
 import {IConfirm} from "../../../todo/interfaces/todo.interfaces";
 import {MatDialog} from "@angular/material/dialog";
+import {DestroyService} from "../../shared/destroy.service";
 
 @Component({
   selector: 'app-top-panel',
   imports: [
     MatFormFieldModule, MatDatepickerModule, FormsModule, ReactiveFormsModule
   ],
+  providers: [DestroyService],
   templateUrl: './top-panel.component.html',
   standalone: true,
   styleUrl: './top-panel.component.scss'
@@ -23,6 +25,7 @@ export class TopPanelComponent implements OnInit {
 
   private readonly dialog: MatDialog = inject(MatDialog);
   public UsersApiService: UsersApiService = inject(UsersApiService);
+  public destroyService: DestroyService = inject(DestroyService);
 
   readonly range = new FormGroup({
     start: new FormControl<Date | null>(null),
@@ -32,6 +35,8 @@ export class TopPanelComponent implements OnInit {
   public isShowFindList: boolean = false;
   public searchList: string[] = [];
   public searchValue: string = '';
+  public isErrorEmptyList: boolean = false;
+  public isCheckedItems: boolean = false;
 
 
   ngOnInit(): void {
@@ -40,20 +45,34 @@ export class TopPanelComponent implements OnInit {
 
     this.initSearchList();
 
+    this.checkedItems();
   }
 
   private initSearchList() {
     this.UsersApiService.searchEmployees$.pipe(
         debounceTime(500),
+        takeUntil(this.destroyService.destroy)
     ).subscribe((data: string[]) => {
       this.searchList = data.slice(-5).reverse();
+    })
+  }
+
+  private checkedItems() {
+    this.UsersApiService.hasCheckedEmployees$.pipe(
+        takeUntil(this.destroyService.destroy),
+    ).subscribe((data: boolean) => {
+
+      console.log(111, 'data', data);
+
+      this.isCheckedItems = data;
     })
   }
 
   public checkDatePicker(): void {
     this.range.valueChanges.pipe(
         filter(value => !!(value.start && value.end)),
-        debounceTime(1000)
+        debounceTime(1000),
+        takeUntil(this.destroyService.destroy)
     ).subscribe(value => {
 
       const {start, end} = value;
@@ -70,11 +89,14 @@ export class TopPanelComponent implements OnInit {
         title: 'Do you want delete ALL selected employees?',
         description: 'You won\'t be able to bring back all your remote workers.'
       }
-    }).afterClosed().subscribe((data: IConfirm) => {
-
-      if (data.confirm) {
-        this.UsersApiService.deleteChecked();
-      }
+    }).afterClosed()
+        .pipe(
+            takeUntil(this.destroyService.destroy)
+        )
+        .subscribe((data: IConfirm) => {
+          if (data.confirm) {
+            this.UsersApiService.deleteChecked();
+          }
     })
 
   }
@@ -115,6 +137,17 @@ export class TopPanelComponent implements OnInit {
   public clearSearch(): void {
     this.searchValue = '';
     this.searchChange(this.searchValue);
+  }
+
+  public get clearButtonDate(): boolean {
+    return !!(this.range.controls.start.value && this.range.controls.end.value);
+  }
+
+  public clearDateField(): void {
+
+    this.range.reset();
+
+    this.UsersApiService.clearDateField();
   }
 
 

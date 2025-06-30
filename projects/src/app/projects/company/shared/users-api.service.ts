@@ -16,6 +16,7 @@ export class UsersApiService {
   public employeeList$: BehaviorSubject<IEmployee[]> = new BehaviorSubject<IEmployee[]>([]);
   public searchEmployeesFinded: string[] = [];
   public searchEmployees$: ReplaySubject<string[]> = new ReplaySubject<string[]>(5);
+  public hasCheckedEmployees$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor() {
 
@@ -31,6 +32,8 @@ export class UsersApiService {
     this.employeeList$.next(this.companyEmployees.length ? this.companyEmployees : COMPANY_EMPLOYEE);
 
     this.searchEmployees$.next(this.searchEmployeesFinded.length ? this.searchEmployeesFinded : []);
+
+    this.updateHasCheckedEmployees();
 
   }
 
@@ -53,12 +56,16 @@ export class UsersApiService {
         employee.isChecked = event?.checked;
       }
     })
+
+    this.updateHasCheckedEmployees();
   }
 
   public checkedAll(event: any): void {
     this.companyEmployees.forEach(employee => {
       employee.isChecked = event?.checked;
     })
+
+    this.updateHasCheckedEmployees();
   }
 
   @sideEffectDecorator(`saveListToStorage`)
@@ -98,9 +105,6 @@ export class UsersApiService {
       return isWithinPeriod;
     });
 
-
-    console.log(filteredUsers);
-
     this.updateUsersListPicker(filteredUsers);
   }
 
@@ -110,7 +114,7 @@ export class UsersApiService {
       return;
     }
 
-    this.employeeList$.next(this.companyEmployees);
+    this.employeeList$.next([]);
   }
 
   public searchEmployee(value: string) {
@@ -148,6 +152,15 @@ export class UsersApiService {
     this.searchEmployeesFinded.push(value);
     this.searchEmployees$.next(this.searchEmployeesFinded);
     this.localStorageService.setItem('searchFindedEmployees', this.searchEmployeesFinded);
+  }
+
+  public clearDateField(): void {
+    this.init();
+  }
+
+  private updateHasCheckedEmployees(): void {
+    const hasChecked = this.companyEmployees.some(employee => employee.isChecked);
+    this.hasCheckedEmployees$.next(hasChecked);
   }
 
 }
