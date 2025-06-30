@@ -1,0 +1,29 @@
+
+<div class="title">Edit profile</div>
+
+<form class="form-profile" [formGroup]="profileForm" (submit)="submitForm()">
+
+    <div class="content">
+        <app-custom-field [title]="'FirstName'" ></app-custom-field>
+        <app-custom-field [title]="'LastName'" ></app-custom-field>
+        <app-custom-field [title]="'Email'" ></app-custom-field>
+        <app-custom-field [title]="'Position'" ></app-custom-field>
+        <app-custom-field [title]="'Departament'" ></app-custom-field>
+        <app-custom-field [title]="'Employ work date'" ></app-custom-field>
+
+        <div class="field-title title-address">Address employee</div>
+
+        <app-custom-field [title]="'City'" ></app-custom-field>
+        <app-custom-field [title]="'Street'" ></app-custom-field>
+        <app-custom-field [title]="'ZipCode'" ></app-custom-field>
+
+    </div>
+
+
+    <div class="button-wrap">
+        <button type="submit" class="filled-cta button">Save changes</button>
+
+        <button type="button" class="secondary-cta button" (click)="cancelChanges()">Cancel changes</button>
+    </div>
+
+</form>

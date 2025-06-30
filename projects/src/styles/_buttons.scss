@@ -3,16 +3,40 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
   padding: 8px 16px;
   font-size: 14px;
   font-weight: 500;
   color: var(--white);
+  fill: var(--white);
   text-decoration: none;
   background: var(--secondary-cta);
   border-radius: 4px;
   cursor: pointer;
 
   &:hover {
+    background-color: var(--secondary-cta-hover);
+  }
+}
+
+.secondary-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  fill: var(--secondary-cta);
+  color: var(--secondary-cta);
+  border: 2px solid var(--secondary-cta);
+  background: transparent;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--white);
+    fill: var(--white);
     background-color: var(--secondary-cta-hover);
   }
 }

@@ -11,9 +11,23 @@
   border-radius: 8px;
 }
 
+.top-block {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.button-edit {
+  .icon {
+    font-size: 24px;
+  }
+}
+
 .back-button {
   display: inline-flex;
   align-self: flex-start;
+  align-self: center;
   padding: 5px;
   font-size: 14px;
   line-height: 1.3;
