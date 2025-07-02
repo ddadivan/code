@@ -1,33 +1,30 @@
-
 <div class="field-container">
     <label class="field-title"
-           [class.error]="formField && formField.invalid && (formField?.touched || formField.dirty)"
+           [class.error]="controlField && controlField.invalid && (controlField.touched || controlField.dirty)"
     >{{ title }}</label>
 
     <input class="field"
-           [class.error]="formField && formField.invalid && (formField?.touched || formField.dirty)"
+           [class.error]="control.control && control.control.invalid && (control.control.touched || control.control.dirty)"
            [type]="type"
-           [value]="value"
            [placeholder]="title"
-           (input)="onInput($event)"
+           [(ngModel)]="value"         [disabled]="isDisabled"     (input)="onInput($event)"
            (blur)="onBlur()"
     />
 
-
-    @if (formField && formField.invalid && (formField?.touched || formField.dirty)) {
+    @if (controlField && controlField.invalid && (controlField.touched || controlField.dirty)) {
         <div class="error-messages">
 
-            @if (formField.errors?.['required']) {
+            @if (controlField.errors?.['required']) {
                 <p>Это поле обязательно для заполнения.</p>
             }
-            @if (formField.errors?.['email']) {
+            @if (controlField.errors?.['email']) {
                 <p>Пожалуйста, введите корректный email.</p>
             }
-            @if (formField.errors?.['min']) {
-                <p>Значение должно быть не менее {{ formField.errors?.['min'].min }}</p>
+            @if (controlField.errors?.['min']) {
+                <p>Значение должно быть не менее {{ controlField.errors?.['min'].min }}</p>
             }
-            @if (formField.errors?.['minlength']) {
-                <p>Значение должно быть не менее {{ formField.errors?.['minlength'].requiredLength }} символов. Текущее количество: {{ formField.errors?.['minlength'].actualLength }}</p>
+            @if (controlField.errors?.['minlength']) {
+                <p>Значение должно быть не менее {{ controlField.errors?.['minlength'].requiredLength }} символов. Текущее количество: {{ controlField.errors?.['minlength'].actualLength }}</p>
             }
         </div>
     }

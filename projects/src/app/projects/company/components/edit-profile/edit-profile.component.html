@@ -7,23 +7,23 @@
 
         <div class="field-title title-info">Employee info</div>
 
-        <app-custom-field [title]="'First name'" [parentForm]="profileForm" fieldName="firstName" formControlName="firstName"></app-custom-field>
-        <app-custom-field [title]="'Last name'" [parentForm]="profileForm" fieldName="lastName" formControlName="lastName"></app-custom-field>
-        <app-custom-field [title]="'Age'" [type]="'number'" [parentForm]="profileForm" fieldName="age" formControlName="age"></app-custom-field>
-        <app-custom-field [title]="'Email'" [type]="'email'" [parentForm]="profileForm" fieldName="email" formControlName="email"></app-custom-field>
+        <app-custom-field [title]="'First name'" formControlName="firstName"></app-custom-field>
+        <app-custom-field [title]="'Last name'" formControlName="lastName"></app-custom-field>
+        <app-custom-field [title]="'Age'" [type]="'number'" formControlName="age"></app-custom-field>
+        <app-custom-field [title]="'Email'" [type]="'email'" formControlName="email"></app-custom-field>
 
         <div class="field-title title-info">Employee work info</div>
 
-        <app-custom-field [title]="'Position'" [parentForm]="profileForm" fieldName="position" formControlName="position"></app-custom-field>
-        <app-custom-field [title]="'Departament'" [parentForm]="profileForm" fieldName="departament" formControlName="departament"></app-custom-field>
-        <app-custom-field [title]="'Employ work date'" [parentForm]="profileForm" fieldName="employWorkDate" [type]="'date'" formControlName="employWorkDate"></app-custom-field>
+        <app-custom-field [title]="'Position'" formControlName="position"></app-custom-field>
+        <app-custom-field [title]="'Departament'" formControlName="departament"></app-custom-field>
+        <app-custom-field [title]="'Employ work date'" [type]="'date'" formControlName="employWorkDate"></app-custom-field>
 
         <div class="field-title title-info">Address employee</div>
 
         <ng-container formGroupName="address">
-            <app-custom-field [title]="'City'" [parentForm]="profileForm" fieldName="address.city" formControlName="city"></app-custom-field>
-            <app-custom-field [title]="'Street'" [parentForm]="profileForm" fieldName="address.street" formControlName="street"></app-custom-field>
-            <app-custom-field [title]="'ZipCode'" [type]="'number'" [parentForm]="profileForm" fieldName="address.zipCode" formControlName="zipCode"></app-custom-field>
+            <app-custom-field [title]="'City'" formControlName="city"></app-custom-field>
+            <app-custom-field [title]="'Street'" formControlName="street"></app-custom-field>
+            <app-custom-field [title]="'ZipCode'" [type]="'number'" formControlName="zipCode"></app-custom-field>
         </ng-container>
 
     </div>

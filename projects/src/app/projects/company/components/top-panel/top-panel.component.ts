@@ -116,7 +116,7 @@ export class TopPanelComponent implements OnInit {
 
   public searchBlur(value: string): void {
     this.isShowFindList = false;
-    this.searchChange(value);
+    //this.searchChange(value);
   }
 
   public selectSearchItem(value: string): void {

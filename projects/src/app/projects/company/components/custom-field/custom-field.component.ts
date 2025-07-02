@@ -1,20 +1,18 @@
-import {Component, forwardRef, Input} from '@angular/core';
-import {ControlValueAccessor, FormControl, FormGroup, FormsModule, NG_VALUE_ACCESSOR} from "@angular/forms";
-import {JsonPipe} from "@angular/common";
+import { Component, Input, Optional, Self } from '@angular/core';
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  FormsModule,
+  NgControl
+} from "@angular/forms";
 
 @Component({
   selector: 'app-custom-field',
+  standalone: true,
   imports: [
-    FormsModule,
-    JsonPipe
+    FormsModule
   ],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => CustomFieldComponent),
-      multi: true
-    }
-  ],
+  providers: [],
   templateUrl: './custom-field.component.html',
   styleUrl: './custom-field.component.scss'
 })
@@ -23,17 +21,16 @@ export class CustomFieldComponent implements ControlValueAccessor {
   @Input() title: string = '';
   @Input() type: string = 'text';
 
-  @Input() parentForm!: FormGroup;
-  @Input() fieldName!: string;
-
   public value: any = '';
   public isDisabled: boolean = false;
 
   private onChange: (value: any) => void = () => {};
   private onTouched: () => void = () => {};
 
-  public get formField(): FormControl {
-    return this.parentForm?.get(this.fieldName) as FormControl;
+  constructor(@Self() public control: NgControl) {
+    if (this.control) {
+      this.control.valueAccessor = this;
+    }
   }
 
   public writeValue(obj: any): void {
@@ -60,6 +57,10 @@ export class CustomFieldComponent implements ControlValueAccessor {
 
   public onBlur(): void {
     this.onTouched();
+  }
+
+  public get controlField(): AbstractControl | null {
+    return this.control.control;
   }
 
 }
