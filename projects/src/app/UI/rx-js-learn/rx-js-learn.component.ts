@@ -2,24 +2,24 @@ import {Component, ElementRef, inject, OnDestroy, OnInit, ViewChild} from '@angu
 import {
   BehaviorSubject,
   catchError,
-  combineLatest,
+  combineLatest, concat, concatMap,
   debounce,
   debounceTime,
-  delay,
+  delay, distinctUntilChanged, exhaustMap,
   first,
   forkJoin,
   from,
-  fromEvent,
+  fromEvent, iif,
   interval,
-  map,
+  map, merge, mergeMap,
   Observable,
   Observer,
   of,
   reduce,
   ReplaySubject,
-  scan,
+  scan, share, shareReplay,
   Subject,
-  Subscription,
+  Subscription, switchMap,
   take, takeUntil,
   tap,
   timeout,
@@ -48,6 +48,9 @@ export class RxJsLearnComponent implements OnInit, OnDestroy {
   private destroyService: DestroyService = inject(DestroyService);
 
   @ViewChild('field', {static: true}) fieldRef!: ElementRef;
+  @ViewChild('fieldSearch', {static: true}) fieldSearch!: ElementRef;
+  @ViewChild('switchEl', {static: true}) switchEl!: ElementRef;
+  @ViewChild('exhaustEl', {static: true}) exhaustEl!: ElementRef;
 
   private router: Router = inject(Router);
 
@@ -80,6 +83,36 @@ export class RxJsLearnComponent implements OnInit, OnDestroy {
 
   public frases: string[] = ['Hello', 'Hello world', 'city  ', 'Hello city  ', '  I love Rxjs', '  Angular  '];
 
+  public usersList = [
+    {
+      name: 'John',
+      age: 4,
+    },
+      {
+      name: 'Dima',
+      age: 24,
+    },
+      {
+      name: 'Mike',
+      age: 41,
+    },
+      {
+      name: 'July',
+      age: 16,
+    },
+      {
+      name: 'Mark',
+      age: 45,
+    },
+  ];
+
+  public copyUserList = this.usersList;
+
+
+  public namesList = ['Alex', 'Kostya', 'Mike'];
+
+  public todosIds = [1,2,3,4,5];
+
 
   public destroy$: Subject<unknown> = new Subject();
 
@@ -98,9 +131,167 @@ export class RxJsLearnComponent implements OnInit, OnDestroy {
   ngAfterViewInit() {
 
   }
+  public  countSwitch = 1
+  public switchTest(): void {
+
+    fromEvent(this.switchEl.nativeElement, 'click').pipe(
+        switchMap(() =>{
+          return this.apiJsonPlaceholderService.getTodos(++this.countSwitch)
+        }),
+        map((data: any) => {
+          return this.countSwitch
+        })
+    ).subscribe((data) => {
+      console.log(666, 'switch', data);
+    })
+  }
+
+  public  couintExha = 0
+  public  ignoreExha = 0
+  public  sendExha = 0
+  public  isActiveExha = false;
+  public exhaustTest(): void {
+
+
+    fromEvent(this.exhaustEl.nativeElement, 'click').pipe(
+        exhaustMap(() =>{
+
+          if (this.isActiveExha) {
+            ++this.ignoreExha
+          }
+
+          this.isActiveExha = true;
+
+          return this.apiJsonPlaceholderService.getTodos(++this.couintExha)
+        })
+    ).subscribe((data) => {
+      console.log(666, 'all click', this.couintExha);
+      console.log(666, 'sended', ++this.sendExha);
+      console.log(666, 'ignored', this.ignoreExha);
+
+      this.isActiveExha = false;
+    })
+  }
 
 
   ngOnInit() {
+
+    const todoItem$ = new BehaviorSubject('hello');
+
+
+
+    let id = 1;
+
+    const todoItem = todoItem$.pipe(
+        switchMap(() => {
+          return this.apiJsonPlaceholderService.getTodos(id++)
+        }),
+        shareReplay(1),
+    )
+
+    // todoItem.subscribe((data: any) => {
+    //   console.log(999, 'data', data);
+    // } );
+    //
+    // todoItem.pipe(delay(1000)).subscribe((data: any) => {
+    //   console.log(999, 'data 2', data);
+    // } );
+    //
+    // timer(2000).subscribe((data: any) => {
+    //   todoItem$.next('Hello')
+    // })
+
+
+    const todoShare$ = this.apiJsonPlaceholderService.getTodos(5).pipe(
+        share()
+    )
+
+    todoShare$.subscribe((data: any) => {
+      console.log(10, 'data 1', data);
+    })
+
+    todoShare$.subscribe((data: any) => {
+      console.log(10, 'data 2', data);
+    })
+
+    timer(2000).subscribe((data: any) => {
+      todoShare$.subscribe((data: any) => {
+        console.log(10, 'data 3', data);
+      })
+    })
+
+
+    // from(this.todosIds).pipe(
+    //     mergeMap((id) => {
+    //       return this.apiJsonPlaceholderService.getTodos(id)
+    //     })
+    // ).subscribe((data) => {
+    //   console.log(222, data);
+    //
+    // })
+
+    // from(this.todosIds).pipe(
+    //     concatMap((id) => {
+    //       return this.apiJsonPlaceholderService.getTodos(id).pipe(delay(Math.random() * 3000))
+    //     })
+    // ).subscribe((data) => {
+    //   console.log(333, data);
+    //
+    // })
+    //
+    //
+    // concat(this.apiJsonPlaceholderService.getTodos(1), this.apiJsonPlaceholderService.getTodos(2)).subscribe((data) => {
+    //   console.log(444, data);
+    // })
+    //
+    // merge(this.apiJsonPlaceholderService.getTodos(1), this.apiJsonPlaceholderService.getTodos(2)).subscribe((data) => {
+    //   console.log(555, data);
+    // })
+    //
+    // forkJoin(this.apiJsonPlaceholderService.getTodos(1), this.apiJsonPlaceholderService.getTodos(2)).subscribe((data) => {
+    //   console.log(222, 'forkJoin', data);
+    // })
+
+
+
+
+    from(this.namesList).pipe(
+        mergeMap((data) => {
+          return of(`My name ${data}`).pipe(delay(Math.random() * 3000))
+        })
+    ).subscribe((data) => {
+      //console.log(222, data);
+    })
+
+
+
+
+
+
+    fromEvent<Event>(this.fieldSearch.nativeElement, 'input').pipe(
+        debounceTime(300),
+        map((data: Event) => {
+          return (data.target as HTMLInputElement).value;
+        }),
+        distinctUntilChanged(),
+        switchMap((data: string) => {
+          return of(this.usersList
+              .filter((user)=>
+                  user.name.startsWith(data)))
+              .pipe(delay(5000))
+        })
+    ).subscribe((data) => {
+      if (data) {
+        this.copyUserList = data;
+        return;
+      }
+
+      this.copyUserList = this.usersList;
+    })
+
+
+
+
 
     this.numberList$.pipe(
         map((numList) => {
@@ -110,6 +301,8 @@ export class RxJsLearnComponent implements OnInit, OnDestroy {
     ).subscribe((numbers) => {
       console.log('--', numbers);
     })
+
+
 
     from(this.numberList).pipe(
         filter((num) => {
@@ -146,8 +339,14 @@ export class RxJsLearnComponent implements OnInit, OnDestroy {
       console.log(frases);
     })
 
+
     const point$ = fromEvent<PointerEvent>(window.document, 'click').pipe(
-        timeout(3000),
+        // switchMap((event: PointerEvent) => {
+        //
+        //   // console.log('---', event);
+        //   //
+        //   // return interval(1000)
+        // }),
         catchError((err) => {
           console.log(err);
           return of(err);
@@ -156,8 +355,10 @@ export class RxJsLearnComponent implements OnInit, OnDestroy {
     )
 
     point$.subscribe((event: PointerEvent) => {
-      console.log('x', event.clientX);
-      console.log('y', event.clientY);
+
+      console.log('---', event);
+      // console.log('x', event.clientX);
+      // console.log('y', event.clientY);
     })
 
 
@@ -219,6 +420,10 @@ export class RxJsLearnComponent implements OnInit, OnDestroy {
     })
 
     // fromEvent(this.fieldRef.nativeElement, 'click').subscribe(() => {
+    //   console.log('click');
+    // })
+
+    // fromEvent(document, 'click').subscribe(() => {
     //   console.log('click');
     // })
 

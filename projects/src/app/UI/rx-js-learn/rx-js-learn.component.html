@@ -14,10 +14,29 @@
 <!--<p>{{ counterUp }}</p>-->
 
 
-@for (user of users; track user.id) {
-    <p>{{ user.name }}</p>
-    <p>{{ user.email }}</p>
-    <p>{{ user.address.city }}</p>
+<!--@for (user of users; track user.id) {-->
+<!--    <p>{{ user.name }}</p>-->
+<!--    <p>{{ user.email }}</p>-->
+<!--    <p>{{ user.address.city }}</p>-->
+
+<!--    <hr />-->
+<!--}-->
+
+
+<input type="text" class="field"  #fieldSearch />
+
+<hr />
+
+@for (item of copyUserList; track $index) {
+    <span>{{ item.name}} </span>
+    <span>{{ item.age}}</span>
 
     <hr />
 }
+
+
+<hr />
+
+<button type="button" class="modal-button" #exhaustEl (click)="exhaustTest()">Exhaust</button>
+
+<button type="button" class="modal-button" #switchEl (click)="switchTest()">SwitchMap</button>

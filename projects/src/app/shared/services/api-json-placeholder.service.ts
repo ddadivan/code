@@ -19,4 +19,8 @@ export class ApiJsonPlaceholderService {
   public getUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${this.url}/users`);
   }
+
+  public getTodos(id: number): any {
+    return this.http.get<User[]>(`${this.url}/photos/${id}`);
+  }
 }
