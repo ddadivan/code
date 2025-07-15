@@ -13,6 +13,8 @@ import {AuthSecondGuard} from "./core/guards/auth-second.guard";
 import {TabletEmployeesComponent} from "./projects/company/components/tablet-employees/tablet-employees.component";
 import {MainCompanyComponent} from "./projects/company/components/main-company/main-company.component";
 import {ProfileComponent} from "./projects/company/components/profile/profile.component";
+import {authCompanyActivate} from "./projects/company/shared/guards/authCompanyActivate";
+import {employeeDeactivateEdit} from "./projects/company/shared/guards/employeeDeactivateEdit";
 
 export const routes: Routes = [
   //{path: '', component: Test1Component, pathMatch: 'prefix', children:[{path:'home', component: Test2Component}]},
@@ -24,10 +26,23 @@ export const routes: Routes = [
       {path: 'send', component: Test2Component},
     ] },
 
-  {path: 'company', component: MainCompanyComponent,
+  {path: 'company',
+      component: MainCompanyComponent,
+      canActivate: [authCompanyActivate],
       children: [
-        {path: '', component: TabletEmployeesComponent},
-        {path: 'employee/:id', component: ProfileComponent},
+        {
+            path: '',
+            component: TabletEmployeesComponent
+        },
+        {
+            path: 'employee/:id',
+            component: ProfileComponent,
+            canDeactivate: [employeeDeactivateEdit],
+        },
+        {
+            path: '**',
+            redirectTo: '',
+        }
       ]
   },
 

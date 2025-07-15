@@ -11,6 +11,7 @@ import {DestroyService} from "../../shared/destroy.service";
     TopPanelComponent
   ],
   templateUrl: './main-company.component.html',
+  standalone: true,
   styleUrl: './main-company.component.scss'
 })
 export class MainCompanyComponent implements OnInit {

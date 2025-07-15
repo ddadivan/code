@@ -7,7 +7,9 @@
            [class.error]="control.control && control.control.invalid && (control.control.touched || control.control.dirty)"
            [type]="type"
            [placeholder]="title"
-           [(ngModel)]="value"         [disabled]="isDisabled"     (input)="onInput($event)"
+           [(ngModel)]="value"
+           [disabled]="isDisabled"
+           (input)="onInput($event)"
            (blur)="onBlur()"
     />
 

@@ -14,6 +14,7 @@ import {filter, map, takeUntil} from "rxjs";
     EditProfileComponent
   ],
   templateUrl: './profile.component.html',
+  standalone: true,
   styleUrl: './profile.component.scss'
 })
 export class ProfileComponent implements OnChanges {

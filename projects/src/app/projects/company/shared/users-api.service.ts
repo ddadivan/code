@@ -24,7 +24,7 @@ export class UsersApiService {
   }
 
 
-  private init(): void {
+  public init(): void {
 
     this.companyEmployees = this.localStorageService.getItem('companyEmployees', '[]');
     this.searchEmployeesFinded = this.localStorageService.getItem('searchFindedEmployees', '[]');

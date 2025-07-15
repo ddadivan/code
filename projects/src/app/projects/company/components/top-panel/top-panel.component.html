@@ -10,7 +10,7 @@
                    #search
                    [(ngModel)]="searchValue"
                    (keydown.enter)="searchChange(searchValue)"
-                   (ngModelChange)="searchChange(searchValue)"
+                   (change)="searchChange(searchValue)"
                    (focus)="showFindList($event)"
             />
 

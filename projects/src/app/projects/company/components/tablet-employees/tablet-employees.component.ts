@@ -45,6 +45,7 @@ import {DestroyService} from "../../shared/destroy.service";
     ],
     providers: [DestroyService],
     templateUrl: './tablet-employees.component.html',
+    standalone: true,
     styleUrl: './tablet-employees.component.scss'
 })
 export class TabletEmployeesComponent implements AfterViewInit {
