@@ -131,7 +131,7 @@
 
 tr {
   display: grid;
-  grid-template-columns: auto repeat(4, minmax(100px, 1fr)) minmax(100px, auto);
+  grid-template-columns: repeat(4, minmax(100px, 1fr)) minmax(100px, auto);
   gap: 8px;
   width: 100%;
   min-height: 70px;
@@ -140,6 +140,10 @@ tr {
   background-color: vaR(--white);
   border: 1px solid rgba(85, 86, 90, 0.12);
   border-bottom: none;
+
+  &:has(.checkbox) {
+    grid-template-columns: auto repeat(4, minmax(100px, 1fr)) minmax(100px, auto);
+  }
 
   &:not(.tablet-head):last-child {
     border-radius: 0 0 8px 8px;

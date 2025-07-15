@@ -16,6 +16,7 @@ import {DestroyService} from "../../shared/destroy.service";
     CustomFieldComponent
   ],
   templateUrl: './edit-profile.component.html',
+  standalone: true,
   styleUrl: './edit-profile.component.scss'
 })
 export class EditProfileComponent implements OnInit {

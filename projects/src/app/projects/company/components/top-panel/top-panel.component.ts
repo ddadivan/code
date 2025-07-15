@@ -8,11 +8,13 @@ import {ConfirmDialogComponent} from "../../../../UI/dialogs/confirm-dialog/conf
 import {IConfirm} from "../../../todo/interfaces/todo.interfaces";
 import {MatDialog} from "@angular/material/dialog";
 import {DestroyService} from "../../shared/destroy.service";
+import {RoleEnums} from "../../enums/role.enums";
+import {RoleDirective} from "../../shared/directives/role.directive";
 
 @Component({
   selector: 'app-top-panel',
   imports: [
-    MatFormFieldModule, MatDatepickerModule, FormsModule, ReactiveFormsModule
+    MatFormFieldModule, MatDatepickerModule, FormsModule, ReactiveFormsModule, RoleDirective
   ],
   providers: [DestroyService],
   templateUrl: './top-panel.component.html',
@@ -37,6 +39,8 @@ export class TopPanelComponent implements OnInit {
   public searchValue: string = '';
   public isErrorEmptyList: boolean = false;
   public isCheckedItems: boolean = false;
+
+  protected readonly RoleEnums = RoleEnums;
 
 
   ngOnInit(): void {
@@ -146,6 +150,4 @@ export class TopPanelComponent implements OnInit {
 
     this.UsersApiService.clearDateField();
   }
-
-
 }

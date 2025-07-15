@@ -20,6 +20,8 @@ import {FormsModule} from "@angular/forms";
 import {first, takeUntil} from "rxjs";
 import {LocalStorageService} from "../../../../shared/services/local-storage.service";
 import {DestroyService} from "../../shared/destroy.service";
+import {RoleDirective} from "../../shared/directives/role.directive";
+import {AuthCompanyService} from "../../shared/auth-company.service";
 
 @Component({
     selector: 'app-tablet-employees',
@@ -42,6 +44,7 @@ import {DestroyService} from "../../shared/destroy.service";
         MatSort,
         MatSortHeader,
         FormsModule,
+        RoleDirective,
     ],
     providers: [DestroyService],
     templateUrl: './tablet-employees.component.html',
@@ -53,12 +56,13 @@ export class TabletEmployeesComponent implements AfterViewInit {
     public UsersApiService: UsersApiService = inject(UsersApiService);
     private readonly localStorageService: LocalStorageService = inject(LocalStorageService);
     private readonly destroyService: DestroyService = inject(DestroyService);
+    private authCompanyService: AuthCompanyService = inject(AuthCompanyService);
 
     @ViewChild('table', {static: true}) table!: MatTable<IEmployee>;
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
 
-    public displayedColumns: string[] = ['isChecked', 'name', 'email', 'departament', 'employWorkDate', 'action', 'info'];
+    public displayedColumns: string[] = ['name', 'email', 'departament', 'employWorkDate', 'action', 'info'];
 
     public dataSource = new MatTableDataSource<IEmployee>();
     public isShowViewMore: boolean = false;
@@ -68,6 +72,10 @@ export class TabletEmployeesComponent implements AfterViewInit {
     public sortedData: IEmployee[] = this.dataSource.data.slice();
 
     ngAfterViewInit() {
+
+        if (this.authCompanyService.isAdmin()) {
+            this.displayedColumns.unshift('isChecked');
+        }
 
         this.UsersApiService.employeeList$.pipe(
             takeUntil(this.destroyService.destroy)

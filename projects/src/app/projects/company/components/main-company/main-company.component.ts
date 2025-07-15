@@ -3,6 +3,7 @@ import {ActivatedRoute, NavigationEnd, Router, RouterOutlet} from "@angular/rout
 import {TopPanelComponent} from "../top-panel/top-panel.component";
 import {filter, Subscription, takeUntil} from "rxjs";
 import {DestroyService} from "../../shared/destroy.service";
+import {AuthCompanyService} from "../../shared/auth-company.service";
 
 @Component({
   selector: 'app-main-company',
@@ -18,6 +19,7 @@ export class MainCompanyComponent implements OnInit {
 
   private router: Router = inject(Router);
   private readonly destroyService: DestroyService = inject(DestroyService);
+  private authCompanyService: AuthCompanyService = inject(AuthCompanyService);
 
   public showTopPanel: boolean = false;
 
@@ -32,5 +34,8 @@ export class MainCompanyComponent implements OnInit {
     });
   }
 
+  public logout(): void {
+    this.authCompanyService.logout();
+  }
 
 }

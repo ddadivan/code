@@ -6,12 +6,14 @@ import {IEmployee} from "../../interfaces/company.interfaces";
 import {EditProfileComponent} from "../edit-profile/edit-profile.component";
 import {DestroyService} from "../../shared/destroy.service";
 import {filter, map, takeUntil} from "rxjs";
+import {RoleDirective} from "../../shared/directives/role.directive";
 
 @Component({
   selector: 'app-profile',
   imports: [
     RouterLink,
-    EditProfileComponent
+    EditProfileComponent,
+    RoleDirective
   ],
   templateUrl: './profile.component.html',
   standalone: true,
