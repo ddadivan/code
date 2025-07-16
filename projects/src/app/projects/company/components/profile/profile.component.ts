@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, inject, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
 import {RouterLink} from "@angular/router";
 import {COMPANY_EMPLOYEE} from "../../constants/company.constants";
 import {UsersApiService} from "../../shared/users-api.service";
@@ -33,6 +33,8 @@ export class ProfileComponent implements OnChanges {
       this.employeeId = value;
     }
   }
+
+  @ViewChild(EditProfileComponent) editProfileComponentRef?: EditProfileComponent;
 
   ngOnChanges(changes: SimpleChanges) {
     this.init();
