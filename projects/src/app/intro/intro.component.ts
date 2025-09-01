@@ -9,6 +9,8 @@ import {CustomFieldSecondComponent} from "../UI/custom-field-second/custom-field
 import {CustomFieldThirdComponent} from "../UI/custom-field-third/custom-field-third.component";
 import {Test2Component} from "../UI/test-2/test-2.component";
 import {RxJsLearnComponent} from "../UI/rx-js-learn/rx-js-learn.component";
+import {LearnHttpComponent} from "../UI/learn-http/learn-http.component";
+import {CustomTimerComponent} from "../UI/rx-js-learn/custom-timer/custom-timer.component";
 
 @Component({
   selector: 'app-intro',
@@ -22,7 +24,9 @@ import {RxJsLearnComponent} from "../UI/rx-js-learn/rx-js-learn.component";
         CustomFieldSecondComponent,
         CustomFieldThirdComponent,
         Test2Component,
-        RxJsLearnComponent
+        RxJsLearnComponent,
+        LearnHttpComponent,
+        CustomTimerComponent
     ],
   templateUrl: './intro.component.html',
   styleUrl: './intro.component.scss'

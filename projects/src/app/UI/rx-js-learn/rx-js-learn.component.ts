@@ -32,11 +32,13 @@ import {FormsModule} from "@angular/forms";
 import {ApiJsonPlaceholderService} from "../../shared/services/api-json-placeholder.service";
 import {User} from "./interfaces/users.interface";
 import {DestroyService} from "../../shared/services/destroy.service";
+import {CustomTimerComponent} from "./custom-timer/custom-timer.component";
 
 @Component({
   selector: 'app-rx-js-learn',
   imports: [
     FormsModule,
+    CustomTimerComponent,
   ],
   providers: [DestroyService],
   templateUrl: './rx-js-learn.component.html',

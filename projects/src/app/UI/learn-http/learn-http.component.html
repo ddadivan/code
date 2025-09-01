@@ -1,0 +1,50 @@
+
+<div class="button-wrap">
+    <button type="button" class="modal-button" (click)="createUser()">Create user</button>
+    <button type="button" class="modal-button" (click)="deleteAll()">Delete All</button>
+
+    <select (change)="sortList($event.target)">
+        <option value="asc">from A to Z</option>
+        <option value="desc">from Z to A</option>
+    </select>
+
+    <select (change)="filterList($event.target)">
+        <option value="all">All users</option>
+        <option value="admins">All admins</option>
+        <option value="guests">All guests</option>
+        <option value="none">None role</option>
+    </select>
+</div>
+
+<hr />
+
+<div class="search">
+    <input type="text" class="field" [formControl]="searchField" />
+</div>
+
+<hr />
+
+@for (user of this.sortedUsers$ | async; track user.id) {
+    <div class="user-box">
+
+        <div class="user-box" (click)="userInfo(user)">
+            <p>Name: {{user.name}}</p>
+            <p>Age: {{user.age}}</p>
+            <p>Email: {{user.email}}</p>
+            <p>Phone: {{user.phone}}</p>
+            <p>Address: {{user.address}}</p>
+            <p>City: {{user.city}}</p>
+            <p>Role: {{user.role}}</p>
+        </div>
+
+
+        <div class="button-wrap">
+            <button type="button" class="modal-button" (click)="changeUser(user)">Change</button>
+            <button type="button" class="modal-button" (click)="deleteUser(user)">Delete</button>
+        </div>
+    </div>
+
+    <hr />
+}
+
+

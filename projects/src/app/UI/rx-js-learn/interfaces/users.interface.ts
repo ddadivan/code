@@ -27,3 +27,14 @@ export interface User {
     website: string;
     company: Company;
 }
+
+export interface UserApi {
+    id: number;
+    name: string;
+    age: number;
+    email: string;
+    phone: string;
+    address: string;
+    city: string;
+    role: string;
+}
